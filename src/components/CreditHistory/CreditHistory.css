@@ -1,0 +1,155 @@
+
+.credit-history-filter-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 20px;
+    margin: 20px auto; 
+    gap: 20px;
+    background-color: #fff; 
+    border: 1px solid #ddd;
+    border-radius: 8px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .credit-date-field {
+    display: flex;
+    flex-direction: column;
+    width: 30%
+  }
+  
+  .credit-date-field label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+  
+  .credit-date-field input {
+    padding: 10px 5px;
+    font-size: 16px;
+    border: 1px solid #f2f2f2;
+  }
+
+  .credit-form-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 15px 0 0;
+  }
+  
+  .credit-form-actions .btn {
+    padding: 8px 16px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .credit-form-actions .submit-btn {
+    background-color: #44a67e;
+    border-color: #44a67e;
+  }
+  
+  .credit-form-actions .submit-btn:hover {
+    background-color: #44a67e;
+    border-color: #44a67e;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  }
+  
+  .credit-form-actions .download-btn {
+    background: #373435;
+    color: #ffcc29;
+  }
+  
+  .credit-form-actions .download-btn:hover {
+    background: #373435;
+    color: #ffcc29;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  }
+
+
+  /*Credit History Table Style  */
+  .credit-history-table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: #fff;
+  }
+  
+  .credit-history-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  
+  .credit-history-table th,
+  .credit-history-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+  }
+  
+  .credit-history-table th {
+    background-color: #f4f4f4;
+    color: #373435;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: left;
+  }
+  
+  .credit-history-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .credit-history-table tbody tr:hover {
+    background-color:  rgba(255, 204, 41, 0.2);
+  }
+  
+  .credit-history-table td {
+    color: #373435;
+  }
+  
+  .credit-history-table tbody tr:last-child td {
+    border-bottom: 2px solid #ffcc29;
+  }
+  
+  /* Expand Button */
+  .credit-history-expand-btn {
+    background: #373435;
+    color: #ffcc29;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .credit-history-expand-btn:hover {
+    background: #ffcc29;
+    color: #373435;
+  }
+  
+  /* Expanded Row */
+  .credit-history-expanded-row {
+    background-color: #eef7ff;
+  }
+  
+  .credit-history-expanded-content {
+    padding: 10px;
+  }
+
+  
+  .wrap-credit-history {
+    margin: 0 40px;
+  }
+
+@media (max-width: 768px) {
+    .credit-history-filter-wrap {
+        flex-direction: column;
+    }
+  }

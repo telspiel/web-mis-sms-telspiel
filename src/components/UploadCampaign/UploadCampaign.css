@@ -1,0 +1,409 @@
+.upload-campaign-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.upload-input-field {
+    display: flex;
+    align-items: center; 
+    gap: 10px; 
+}
+
+.uploadWrapHourTime {
+  display: flex;
+  width: 35%;
+  gap: 10%;
+}
+
+.uploadWrapHourTime .hourAndMinute{
+  padding: 0.75rem;
+}
+
+.upload-input-field input {
+    width: auto;
+}
+
+.upload-input-field .upload-input {
+    width: auto;
+    flex: 1;
+}
+
+.upload-input-field .date-input {
+    width: 100%;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.upload-input-field label {
+    flex: 0 0 200px; /* Set a fixed width for all labels */
+    text-align: left; /* Align label text to the left */
+    font-weight: bold;
+}
+
+.upload-input-field input[type="text"],
+.upload-input-field select,
+.upload-input-field textarea {
+    flex: 1; /* Take up remaining space */
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.upload-input-field textarea {
+    resize: vertical; /* Allow vertical resizing */
+}
+
+/* ==========Message Note Style========= */
+.upload-input-field .input-alert-combine {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.upload-input-field small {
+  /* color: #373435;
+  font-size: 12px;
+  text-align: start; */
+  color: #44a67e !important;
+  font-size: 13px !important;
+  font-style: italic;
+  text-align: start !important;
+  margin-top: 2px;
+  font-weight: 600;
+}
+
+/* Code for search select dropdown menu  options */
+.custom-react-select {
+  flex: 1;
+  width: 100%;
+}
+
+.custom-react-select .custom-select__control {
+  width: 100%;
+  padding: 2px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  min-height: 38px;
+  box-shadow: none;
+  text-align: left;
+}
+
+/* Set the placeholder text to black and left aligned */
+.custom-react-select .custom-select__placeholder {
+  color: black;
+  text-align: left;
+  margin-left: 0;
+}
+
+.custom-react-select.search-mode .custom-select__placeholder {
+  color: #aaa !important; /* light grey */
+}
+
+/* Set the selected value text to black */
+.custom-react-select .custom-select__single-value {
+  color: black;
+  text-align: left;
+}
+
+/* Make dropdown menu options black */
+.custom-react-select .custom-select__option {
+  font-size: 14px;
+  padding: 8px 12px;
+  color: black;
+  text-align: left;
+}
+
+/* Style focused option */
+.custom-react-select .custom-select__option--is-focused {
+  background-color: #f0f0f0;
+  color: black;
+}
+
+/* Style selected option */
+.custom-react-select .custom-select__option--is-selected {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Remove yellow box shadow on focus */
+.custom-react-select .custom-select__control--is-focused {
+  box-shadow: none !important;
+  border-color: #ccc !important; /* Optional: set to your default border */
+}
+
+/* Also handle hover state if needed */
+.custom-react-select .custom-select__control:hover {
+  border-color: #ccc;
+}
+
+/* Optional: remove default browser highlight on input */
+.custom-react-select input:focus {
+  outline: none;
+  box-shadow: none !important;
+}
+/* Code for search select dropdown menu  options */
+
+
+.radio-upload {
+    display: flex;
+    gap: 15px; /* Space between radio buttons */
+}
+
+.radio-upload-msg-type {
+    display: flex;
+    gap: 15px;
+}
+
+.radio-upload-msg-type label {
+    display: flex;
+    flex: 0;
+    align-items: center;
+    gap: 5px; 
+    font-weight: normal;
+}
+
+.radio-upload label {
+    display: flex;
+    align-items: center;
+    gap: 5px; 
+    font-weight: normal;
+}
+
+.upload-character-count {
+    /* font-size: 0.9em;
+    margin: 0 !important;
+    color: #333;
+    text-align: end; */
+    font-size: 1em;
+    margin-top: -5px;
+    color: #333;
+    text-align: end;
+    font-weight: 550;
+}
+
+/* Buttons section */
+.upload-form-buttons {
+    display: flex;
+    justify-content: center; /* Align buttons at the center */
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.upload-campaign-button {
+    color: #fff;
+    background-color: #44a67e;
+    border: 1px solid #44a67e;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: -10px;
+  }
+
+  .upload-campaign-button:disabled {
+    background-color: #a9a9a9;
+    border-color: #a9a9a9;
+    cursor: not-allowed;
+  }
+
+.upload-form-buttons .btn-submit,
+.btn-cancel {
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.upload-form-buttons .btn-submit {
+    background-color: #44a67e;
+    color: white;
+}
+
+.upload-form-buttons .btn-cancel {
+    background-color: #fb3d4e;
+    color: white;
+}
+
+/* .upload-form-buttons .btn-submit:hover {
+    background-color: #45a049;
+}
+
+.upload-form-buttons .btn-cancel:hover {
+    background-color: #e53935;
+} */
+
+
+/* Split File CSS Style */
+.split-file-rows {
+  display: flex;
+  flex-direction: column;
+  align-items: start; /* Align items to the start (left) */
+  gap: 1rem;
+  width: 100%;
+}
+
+.split-input-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: end;
+  width: 100%;
+}
+
+.split-input-rows {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.split-input-rows input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100px; 
+}
+
+.split-input-rows select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100px; 
+  /* margin-top: -8px; */
+  margin-right: -10px;
+}
+
+button.add-row-btn {
+  padding: 0.5rem 1rem;
+  background-color: #373435;
+  color: #ffcc29;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 38px; /* Align with input fields */
+}
+
+
+.split-input-rows button.remove-row-btn {
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  height: 38px;
+  margin-right: -11px;
+}
+
+.split-input-rows button.remove-row-btn:hover {
+  background-color: #d9363e;
+}
+
+  
+
+
+
+/* Modal Style */
+.preview-modal-campaign {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-content-campaign {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%; /* Makes it responsive */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-50px);
+    transition: transform 0.3s ease;
+    word-wrap: break-word; /* Ensures words break and wrap */
+    overflow-wrap: break-word; /* Additional support for text wrapping */
+  }
+  
+  .preview-modal-campaign.open .modal-content-campaign {
+    transform: translateY(0);
+  }
+  
+  .modal-content-campaign h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+    text-align: center;
+  }
+  
+  .modal-content-campaign p {
+    font-size: 16px;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #ffcc29;
+    word-wrap: break-word; 
+    overflow-wrap: break-word; 
+    max-width: 100%; 
+    white-space: pre-wrap; 
+    text-align: left;
+  }
+  
+  .modal-buttons-campaign {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .modal-buttons-campaign button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #4caf50;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  .modal-buttons-campaign button:hover {
+    background-color: #45a049;
+  }
+  
+  .modal-buttons-campaign button:nth-child(1) {
+    background-color: #fb3d4e;
+  }
+  
+  .modal-buttons-campaign button:nth-child(1):hover {
+    background-color: #e53935;
+  }
+
+  .file-name {
+    color: #44a67e !important;
+    font-size: 16px !important;
+    text-align: start;
+    font-weight: 600;
+  }

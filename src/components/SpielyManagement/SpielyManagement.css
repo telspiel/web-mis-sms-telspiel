@@ -1,0 +1,373 @@
+.spiely-options {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+
+  .spiely-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+  }
+  
+  .form-group-spiely {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 30px
+  }
+
+  .form-group-spiely-url {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 50px
+  }
+
+  .form-group-spiely-url label {
+    font-weight: bold;
+    text-align: left;
+    white-space: nowrap;
+    flex: 0 0 100px;
+  }
+
+
+  .form-group-sender-header {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 20px
+  }
+
+  .form-group-sender-header label {
+    text-align: left;
+  }
+
+  .form-group-sender-header .domain-header-wrap {
+    width: 50%;
+  }
+  
+  .form-group-spiely label {
+    width: 150px;
+    font-weight: bold;
+    text-align: left;
+    white-space: nowrap;
+
+  }
+
+  .form-group-spiely-radio {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+  }
+
+  .form-group-spiely-radio label {
+    text-align: left;
+    white-space: nowrap;
+    width: 120px;
+    font-weight: bold;
+  }
+  
+  input[type="text"],
+  input[type="url"],
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d1d1d1;
+    border-radius: 4px;
+  }
+  
+  .radio-group {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .radio-group label {
+    display: flex;
+    gap: 5px;
+  }
+
+  .header-msg-type {
+    display: flex
+;
+    justify-content: space-between;
+    margin-right: 5px;
+  }
+  
+  .info-text {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .btn-save {
+    color: #fff;
+    background-color: #44a67e;
+    border: 1px solid #44a67e !important;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .btn-reset {
+    background-color: #fb3d4e;
+    color: #fff;
+    border: 1px solid #fb3d4e;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .shortUrlResponse {
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 5px;
+  }
+
+  .shortUrlResponse p {
+    color: #fff;
+    margin-top: 10px;
+    padding: 10px;
+    text-align: left;
+  }
+  
+
+  /* Table Styling */
+  .spiely-template-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  
+  .spiely-template-table th,
+  .spiely-template-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+  }
+  
+  .spiely-template-table th {
+    background-color: #f4f4f4;
+    color: #373435;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: left;
+  }
+  
+  .spiely-template-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .spiely-template-table tbody tr:hover {
+    background-color:  rgba(255, 204, 41, 0.2);
+  }
+  
+  .spiely-template-table td {
+    color: #373435;
+  }
+  
+  .spiely-template-table tbody tr:last-child td {
+    border-bottom: 2px solid #ffcc29;
+  }
+
+  /* Expand Button */
+  .spiely-expand-btn {
+    background: #373435;
+    color: #ffcc29;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .spiely-expand-btn:hover {
+    background: #ffcc29;
+    color: #373435;
+  }
+  
+  /* Expanded Row */
+  .spiely-expanded-row {
+    background-color: #eef7ff;
+  }
+  
+  .spiely-expanded-content {
+    padding: 10px;
+  }
+
+  /* =========================================================== */
+
+   .delete-short-url {
+    background-color: #fb3d4e;
+    color: #fff;
+    border: 1px solid #fb3d4e;
+    padding: 8px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 5px;
+  }
+
+  .btn-edit-callback {
+    color: #fff;
+    background-color: #44a67e;
+    border: 1px solid #44a67e;
+    padding: 8px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .delete-short-url:hover {
+    background-color: #c82333;
+  }
+  
+  .btn-edit-callback:hover {
+    background-color: #3A7D44;
+  }
+
+  .short-url-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    color: #373435;
+  }
+
+.wrap-add-spiely-link {
+  margin: 0 40px;
+}  
+
+/* Filter Style */
+.filter-short-url {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin-bottom: 15px;
+  gap: 10px;
+}
+
+.filter-short-url label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.filter-short-url input {
+  width: 300px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* ==========Message Note Style========= */
+.spiely-modal-content-campaign .input-alert-combine {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.spiely-modal-content-campaign small {
+  color: #373435;
+  font-size: 12px;
+  text-align: start;
+}
+
+
+/* Modal Style */
+.spliely-modal-campaign {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.spiely-modal-content-campaign {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 50%;
+  max-width: 90%; /* Makes it responsive */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(-50px);
+  transition: transform 0.3s ease;
+  word-wrap: break-word; /* Ensures words break and wrap */
+  overflow-wrap: break-word; /* Additional support for text wrapping */
+}
+
+.spiely-modal-campaign.open .spiely-modal-content-campaign {
+  transform: translateY(0);
+}
+
+.spiely-modal-content-campaign select {
+  width: 30%;
+  margin-bottom: 8px;
+}
+
+.spiely-modal-content-campaign h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+  text-align: left;
+}
+
+.spiely-modal-content-campaign p {
+  font-size: 16px;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  word-wrap: break-word; 
+  overflow-wrap: break-word; 
+  max-width: 100%; 
+  white-space: pre-wrap; 
+  text-align: left;
+}
+
+.modal-buttons-spiely {
+  display: flex;
+  justify-content: end;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.modal-buttons-spiely button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  background-color: #4caf50;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.modal-buttons-spiely .send-btn {
+  color: #fff;
+  background-color: #44a67e;
+  border: 1px solid #44a67e;
+}
+
+.modal-buttons-spiely .close-btn {
+  background-color: #f44336;
+  color: #fff;
+  border: 1px solid #f44336;
+}

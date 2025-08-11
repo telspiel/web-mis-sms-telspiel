@@ -1,0 +1,81 @@
+
+.footer {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-top: 1px solid #e7e7e7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -50px;
+    position: relative;
+    z-index: 10;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: -5px;
+  }
+  
+  .footer-content span {
+    font-size: 14px;
+    color: #333;
+    margin-left: 8px;
+  }
+  
+  .social-icons {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #e9ecef;
+    color: #373435;
+    font-size: 16px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .icon:hover {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .icon.facebook:hover {
+    background-color: #3b5998;
+  }
+  
+  .icon.twitter:hover {
+    background-color: #000000;
+  }
+
+  .icon.instagram:hover {
+    background: linear-gradient(to right, #FED075, #FA7E1E, #D62976, #962FBF, #4F5BD5);
+  }
+  
+  .icon.linkedin:hover {
+    background-color: #0077b5;
+  }
+  
+  .icon.rss:hover {
+    background-color: #f26522;
+  }
+  
+  .icon.youtube:hover {
+    background-color: #ff0000;
+  }
+
+/* Responsive layout */
+@media (max-width: 450px) {
+  .footer {
+      margin-top: 0;
+  }
+}  

@@ -1,0 +1,148 @@
+
+.group-filter-contacts-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 20px;
+  margin: 20px auto; 
+  gap: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .group-input-filed {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+  }
+  
+  .group-input-filed label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+
+  .group-input-filed select {
+    padding: 10px 5px;
+    font-size: 16px;
+    border: 1px solid #f2f2f2;
+    border-radius: 4px;
+    width: 100%; 
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+  
+  .group-input-filed input {
+    padding: 10px 5px;
+    font-size: 16px;
+    border: 1px solid #f2f2f2;
+    background: #fff;
+    border-radius: 4px;
+    width: 100%; 
+    box-sizing: border-box;
+    /* margin-bottom: 10px; */
+    color: #373737;
+  }
+  
+
+  .group-form-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 15px 0 0;
+  }
+  
+  .group-form-actions .btn {
+    padding: 8px 16px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .group-form-actions .submit-btn {
+    background-color: #44a67e;
+    border-color: #44a67e;
+  }
+  
+  .group-form-actions .submit-btn:hover {
+    background-color: #44a67e;
+    border-color: #44a67e;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  }
+  
+  .group-form-actions .cancel-btn {
+    background-color: #fb3d4e;
+  }
+  
+  .group-form-actions .cancel-btn:hover {
+    background-color: #c82333;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  }
+
+  /* Response Message */
+  .shortUrlResponse {
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 5px;
+    margin: 10px auto;
+  }
+
+  .shortUrlResponse p {
+    color: #fff;
+    margin-top: 10px;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  
+  /* search filter */
+  .group-contact-search-filter {
+    margin: 20px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: end;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .group-contact-search-filter input {
+    width: 250px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .individual-contacts-table .delete-btn {
+    background-color: #fb3d4e;
+    color: #fff;
+    border: 1px solid #fb3d4e;
+  }
+  
+  /* ==========Message Note Style=========  */
+  .group-input-filed .input-alert-combine {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .group-input-filed small {
+    /* color: #373435;
+    font-size: 12px;
+    text-align: start; */
+    font-size: 13px !important;
+    font-style: italic;
+    color: #44a67e;
+    text-align: start;
+    font-weight: 550;
+  }
+
+  .wrap-group-contacts {
+    margin: 0 40px;
+  }

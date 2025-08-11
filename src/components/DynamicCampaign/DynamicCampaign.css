@@ -1,0 +1,270 @@
+.dynamic-campaign-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ==========Message Note Style========= */
+.quick-input-field .input-alert-combine {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .quick-input-field .select-mobile-number-alert {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .quick-input-field .select-mobile-number-alert small {
+    color: red;
+    font-size: 12px;
+    text-align: start;
+  }
+  
+  .quick-input-field small {
+    color: #373435;
+    font-size: 12px;
+    text-align: start;
+  }
+
+.dynamic-input-field input {
+    width: auto;
+}
+
+.dynamic-input-field label {
+    flex: 0 0 200px; /* Set a fixed width for all labels */
+    text-align: left; /* Align label text to the left */
+    font-weight: bold;
+}
+
+.dynamic-input-field input[type="text"],
+.dynamic-input-field select,
+.dynamic-input-field textarea {
+    flex: 1; /* Take up remaining space */
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.dynamic-input-field textarea {
+    resize: vertical; /* Allow vertical resizing */
+}
+
+.quick-input-field input {
+    margin: 0;
+}
+
+/* Code for search select dropdown menu  options */
+.custom-react-select {
+  flex: 1;
+  width: 100%;
+}
+
+.custom-react-select .custom-select__control {
+  width: 100%;
+  padding: 2px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  min-height: 38px;
+  box-shadow: none;
+  text-align: left;
+}
+
+/* Set the placeholder text to black and left aligned */
+.custom-react-select .custom-select__placeholder {
+  color: black;
+  text-align: left;
+  margin-left: 0;
+}
+
+.custom-react-select.search-mode .custom-select__placeholder {
+  color: #aaa !important; /* light grey */
+}
+
+/* Set the selected value text to black */
+.custom-react-select .custom-select__single-value {
+  color: black;
+  text-align: left;
+}
+
+/* Make dropdown menu options black */
+.custom-react-select .custom-select__option {
+  font-size: 14px;
+  padding: 8px 12px;
+  color: black;
+  text-align: left;
+}
+
+/* Style focused option */
+.custom-react-select .custom-select__option--is-focused {
+  background-color: #f0f0f0;
+  color: black;
+}
+
+/* Style selected option */
+.custom-react-select .custom-select__option--is-selected {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Remove yellow box shadow on focus */
+.custom-react-select .custom-select__control--is-focused {
+  box-shadow: none !important;
+  border-color: #ccc !important; /* Optional: set to your default border */
+}
+
+/* Also handle hover state if needed */
+.custom-react-select .custom-select__control:hover {
+  border-color: #ccc;
+}
+
+/* Optional: remove default browser highlight on input */
+.custom-react-select input:focus {
+  outline: none;
+  box-shadow: none !important;
+}
+/* Code for search select dropdown menu  options */
+
+/* Dynamic Buttons */
+.dynamic-form-buttons .btn-preview {
+    color: #fff;
+    background-color: #44a67e;
+    border: 1px solid #44a67e;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: -10px;
+}
+
+
+/* Preview Table */
+.numeric-details {
+    display: flex;
+    flex-direction: row;
+    background-color: #fefefe;
+    color: #373435;
+    margin-top: 5px;
+}
+  
+
+/* Button Style */
+
+.dynamic-campaign-buttons-wrap {
+    font-size: 0.9em;
+    margin: 0 !important;
+    color: #333;
+    text-align: end;
+}
+
+.dynamic-campaign-button {
+    color: #fff;
+    background-color: #44a67e;
+    border: 1px solid #44a67e;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: -10px;
+  }
+
+  .dynamic-campaign-button:disabled {
+    background-color: #a9a9a9;
+    border-color: #a9a9a9;
+    cursor: not-allowed;
+  }
+
+  .split-input-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: end;
+    width: 100%;
+  }
+
+  .split-file-rows {
+    display: flex;
+    flex-direction: row !important;
+    justify-content: end;
+    align-items: end;
+    gap: 1rem;
+    width: 100%;
+}
+
+.split-input-rows button.remove-row-btn {
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    height: 38px;
+    margin-right: -11px;
+  }
+  
+  .split-input-rows button.remove-row-btn:hover {
+    background-color: #d9363e;
+  }
+
+  .dynamicWrapHourTime {
+    display: flex;
+    width: 35%;
+    gap: 10%;
+  }
+  
+  .dynamicWrapHourTime .hourAndMinute{
+    padding: 0.75rem;
+  }
+
+
+  .preview-table-container {
+    max-height: 350px; /* Set your desired height */
+    overflow-y: auto;
+    border: 1px solid #ddd;
+  }
+  
+  .preview-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .preview-table thead {
+    background-color: #ffcc29;
+    color: white;
+  }
+  
+  .preview-table th, .preview-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid #ddd;
+    color: #373435;
+  }
+  
+  .preview-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .preview-table tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .preview-table th {
+    font-weight: 650;
+  }
+  

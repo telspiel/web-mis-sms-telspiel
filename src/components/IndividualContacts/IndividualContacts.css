@@ -1,0 +1,227 @@
+.individual-filter-contacts-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 20px;
+  margin: 20px auto; 
+  gap: 20px;
+  background-color: #fff; 
+  border: 1px solid #ddd;
+  border-radius: 8px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .individual-input-filed {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+  }
+  
+  .individual-input-filed label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+  
+  .individual-input-filed select {
+    padding: 10px 5px;
+    font-size: 16px;
+    border: 1px solid #f2f2f2;
+    border-radius: 4px;
+    width: 100%; 
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+
+  .individual-input-filed input {
+    padding: 10px 5px;
+    font-size: 16px;
+    border: 1px solid #f2f2f2;
+    background: #fff;
+    border-radius: 4px;
+    width: 100%; 
+    box-sizing: border-box;
+    /* margin-bottom: 10px; */
+    color: #373737;
+  }
+  
+  .individual-input-filed .mobile-number-wrapper {
+    display: flex;
+    align-items: center;
+  }
+  
+  .individual-input-filed .prefix {
+    background-color: #f2f2f2;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    height: 100%;
+    /* margin-bottom: 10px; */
+  }
+  
+  .individual-input-filed .mobile-number {
+    flex-grow: 1;
+    border-radius: 0 4px 4px 0;
+    margin-left: -1px; 
+  }
+  
+
+  .individual-form-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 15px 0 0;
+  }
+  
+  .individual-form-actions .btn {
+    padding: 8px 16px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .individual-form-actions .submit-btn {
+    background-color: #44a67e;
+    border-color: #44a67e;
+  }
+
+  .individual-form-actions .allContacts-btn {
+    background-color: #373435;
+    color: #ffcc29;
+    border-color: #44a67e;
+  }
+  
+  .individual-form-actions .submit-btn:hover {
+    background-color: #44a67e;
+    border-color: #44a67e;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  }
+
+  .individual-form-actions .allContacts-btn:hover {
+    background-color: #373435;
+    border-color: #373435;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  }
+
+  /* search filter */
+  .senderid-search-filter {
+    margin: 20px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: end;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .senderid-search-filter input {
+    width: 250px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  /* ==========Message Note Style=========  */
+  .individual-input-filed .input-alert-combine {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .individual-input-filed small {
+    /* color: #373435;
+    font-size: 12px;
+    text-align: start; */
+    font-size: 13px !important;
+    font-style: italic;
+    color: #44a67e;
+    text-align: start;
+    font-weight: 550;
+  }
+
+  /* Table structure */
+  .individual-contacts-table-container p {
+    text-align: left;
+    color: #373435;
+  }
+
+  .individual-contacts-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  
+  .individual-contacts-table th,
+  .individual-contacts-table td {
+    text-align: left;
+    padding: 10px;
+    border: 1px solid #ddd;
+    color: #373435;
+  }
+  
+  .individual-contacts-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #373435;
+    text-transform: uppercase;
+    text-align: left;
+  }
+  
+  .individual-contacts-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .individual-contacts-table tr:hover {
+    background-color: #f1f1f1;
+  }
+
+  /* response message */
+  .individual-contact-response {
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 5px;
+    margin: 10px auto;
+  }
+
+  .individual-contact-response p {
+    color: #fff;
+    margin-top: 10px;
+    padding: 10px;
+    text-align: left;
+  }
+
+  .individual-contact-buttons-wrap {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px auto;
+  }
+
+  .individual-contact-buttons-wrap .download-blacklist-button {
+    background-color: #373435;
+    color: #ffcc29;
+    padding: 10px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .individual-contact-buttons-wrap .delete-selected-button {
+    background: #fb3d4e;
+    color: #fff;
+    padding: 10px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .wrap-individual-contacts {
+    margin: 0 40px;
+  } 

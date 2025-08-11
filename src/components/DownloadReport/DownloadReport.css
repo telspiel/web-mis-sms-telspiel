@@ -1,0 +1,146 @@
+.input-filter-form-download {
+  display: flex;
+  /* flex-wrap: wrap; */
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 20px;
+  margin: 20px auto; 
+  gap: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.date-note-alert {
+  color: red !important;
+  font-weight: 600;
+  font-size: 15px;
+  font-style: italic;
+  text-align: left;
+}
+
+  .download-report-field {
+    display: flex;
+    flex-direction: column;
+    width: 25%
+  }
+      
+  .download-report-field label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+      
+  .download-report-field input {
+    padding: 10px 5px;
+    font-size: 16px;
+    border: 1px solid #f2f2f2;
+  }
+
+  .download-report-field select {
+    padding: 10px 5px;
+    font-size: 16px;
+    border: 1px solid #f2f2f2;
+  }
+      
+  .download-form-actions {
+     display: flex;
+     gap: 10px;
+     align-items: center;
+     padding: 15px 0 0;
+  }
+      
+      .download-form-actions .download-btn {
+        background: #373435;
+        color: #ffcc29;
+      }
+      
+      .download-form-actions .download-btn:hover {
+        background: #373435;
+        color: #ffcc29;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+      }
+        
+
+/* Download Report Table Style */
+.download-report-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.download-report-table th,
+.download-report-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.download-report-table th {
+  background-color: #f4f4f4;
+  color: #373435;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.download-report-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.download-report-table tbody tr:hover {
+  background-color:  rgba(255, 204, 41, 0.2);
+}
+
+.download-report-table td {
+  color: #373435;
+}
+
+.download-report-table tbody tr:last-child td {
+  border-bottom: 2px solid #ffcc29;
+}
+
+/* Expand Button */
+.download-report-expand-btn {
+  background: #373435;
+  color: #ffcc29;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.download-report-expand-btn:hover {
+  background: #ffcc29;
+  color: #373435;
+}
+
+/* Expanded Row */
+.download-report-expanded-row {
+  background-color: #eef7ff;
+}
+
+.download-report-expanded-content {
+  padding: 10px;
+}
+
+.wrap-download-report {
+  margin: 0 40px;
+}
+
+/* Response Message */
+.shortUrlResponse {
+  background-color: #28a745;
+  color: #fff;
+  border-radius: 5px;
+  margin: 10px auto;
+}
+
+.shortUrlResponse p {
+  color: #fff;
+  margin-top: 10px;
+  padding: 10px;
+  text-align: left;
+}
