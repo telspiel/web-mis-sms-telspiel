@@ -503,7 +503,22 @@ input:focus {
   transition: all 0.3s ease-in-out;
 }
 
-.login-button:hover,
+.login-button:hover:not(:disabled) {
+  background-color: #fff;
+  color: #44a67e;
+  box-shadow: 0 0 0 2px #44a67e;
+  font-weight: 600;
+}
+
+/* Disabled state */
+.login-button:disabled {
+  background-color: #ccc;   
+  color: #888;              
+  cursor: not-allowed;      
+  box-shadow: none;        
+  font-weight: normal;
+}
+
 .otp-button:hover {
   background-color: #fff;
   color: #44a67e;

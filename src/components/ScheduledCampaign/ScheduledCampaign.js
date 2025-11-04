@@ -219,6 +219,7 @@ const toggleRowExpansion = (index) => {
     <Sidebar isSidebarOpen={isSidebarOpen} 
        username={userData.username}
        isVisualizeAllowed={userData.isVisualizeAllowed}
+       userPrivileges={userData.userPrivileges}
     />
     <div className={`dashboard-main ${isSidebarOpen ? 'sidebar-open' : ''}`}>
     <div className="dashboard-content">

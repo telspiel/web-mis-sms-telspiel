@@ -5,6 +5,11 @@ import Sidebar from '../Sidebar/Sidebar';
 import Footer from '../Footer/Footer';
 import "./CreditHistory.css"
 import Endpoints from '../endpoints';
+import jsPDF from 'jspdf';
+import autoTable from "jspdf-autotable";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
+
 
 function CreditHistory({ userData, onLogout }) {
 
@@ -22,6 +27,9 @@ function CreditHistory({ userData, onLogout }) {
 
     const [expandedRows, setExpandedRows] = useState({});
     const [searchQuery, setSearchQuery] = useState("");
+
+    const [showDownloadModal, setShowDownloadModal] = useState(false);
+    const [downloadFormat, setDownloadFormat] = useState("csv");
 
 
     const toggleSidebar = () => {
@@ -115,14 +123,34 @@ function CreditHistory({ userData, onLogout }) {
         fetchCreditHistoryData();
       };
 
-     //Download Summary Table Data in CSV Format
-  const handleDownloadCredit = () => {
-    if (CreditHistoryTable.length === 0) {
+  //Download Summary Table Data in CSV or PDF Format
+  const handleDownloadCredit = (format) => {
+    if (filteredData.length === 0) {
       alert("No Data To Download");
       return;
     }
   
-    // Prepare CSV content
+    // Update format state
+    setDownloadFormat(format);
+  
+    // Directly trigger based on the clicked button
+    if (format === "csv") {
+      downloadCSV();
+    } else if (format === "pdf") {
+      downloadPDF();
+    }
+  };
+
+  // const handleDownloadConfirm = () => {
+  //   if (downloadFormat === "csv") {
+  //     downloadCSV();
+  //   } else if (downloadFormat === "pdf") {
+  //     downloadPDF();
+  //   }
+  //   setShowDownloadModal(false);
+  // };
+
+  const downloadCSV = () => {
     const headers = [
       "Credit Date",
       "Credit",
@@ -131,7 +159,7 @@ function CreditHistory({ userData, onLogout }) {
       "Updated By",
       "Comment",
     ];
-    const rows = CreditHistoryTable.map((row) => [
+    const rows = filteredData.map((row) => [
       row.createdDate,
       row.credit,
       row.status,
@@ -139,12 +167,11 @@ function CreditHistory({ userData, onLogout }) {
       row.updatedBy,
       row.comment,
     ]);
-  
+
     const csvContent = [headers, ...rows]
       .map((e) => e.join(","))
       .join("\n");
-  
-    // Create a Blob and download it
+
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -153,7 +180,45 @@ function CreditHistory({ userData, onLogout }) {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  }; 
+  };
+
+  const downloadPDF = () => {
+    const doc = new jsPDF();
+  
+    const headers = [["Credit Date", "Credit", "Status", "Updated Credit", "Updated By", "Comment"]];
+    const rows = filteredData.map((row) => [
+      row.createdDate,
+      row.credit,
+      row.status,
+      row.updatedCredit,
+      row.updatedBy,
+      row.comment,
+    ]);
+  
+    autoTable(doc, {
+      head: headers,
+      body: rows,
+      styles: {
+        fontSize: 10,
+        halign: "center", 
+        valign: "middle",
+      },
+      headStyles: {
+        fillColor: [55, 52, 53],   
+        textColor: [255, 204, 41],
+        fontStyle: "bold",
+      },
+      bodyStyles: {
+        fillColor: [255, 255, 255], 
+        textColor: [55, 52, 53],   
+      },
+      alternateRowStyles: {
+        fillColor: [245, 245, 245], 
+      },
+    });
+  
+    doc.save("credit_history.pdf");
+  };
 
   //Serach table data
   const handleSearchChange = (event) => {
@@ -186,6 +251,7 @@ function CreditHistory({ userData, onLogout }) {
             dlrType={userData.dlrType}
             username={userData.username}
             isVisualizeAllowed={userData.isVisualizeAllowed}
+            userPrivileges={userData.userPrivileges}
             />
             <div className={`dashboard-main ${isSidebarOpen ? 'sidebar-open' : ''}`}>
             <div className="dashboard-content">
@@ -223,8 +289,63 @@ function CreditHistory({ userData, onLogout }) {
                 <button className="btn submit-btn" type="button" onClick={handleSubmitCredit}>
                   Submit
                 </button>
-                <button className="btn download-btn" type="button" onClick={handleDownloadCredit}>
-                  Download
+
+               {/* {!showDownloadModal && (
+                  <button
+                    className="btn download-btn"
+                    type="button"
+                    onClick={handleDownloadCredit}
+                  >
+                    Download
+                  </button>
+                )}
+
+
+                {showDownloadModal && (
+                  <div className="download-modal">
+                    <div className='download-format-wrap'>
+                    <label>
+                      <input
+                        type="radio"
+                        name="format"
+                        value="csv"
+                        checked={downloadFormat === "csv"}
+                        onChange={() => setDownloadFormat("csv")}
+                      />
+                      CSV
+                    </label>
+                    <label>
+                      <input
+                        type="radio"
+                        name="format"
+                        value="pdf"
+                        checked={downloadFormat === "pdf"}
+                        onChange={() => setDownloadFormat("pdf")}
+                      />
+                      PDF
+                    </label>
+                    </div>
+                    <div className='action-download-btns'>
+                    <button onClick={handleDownloadConfirm} className='download'>Download</button>
+                    <button onClick={() => setShowDownloadModal(false)} className='cancel'>Cancel</button>
+                    </div>
+                  </div>
+                )} */}
+
+                <button
+                  className="btn download-btn"
+                  type="button"
+                  onClick={() => handleDownloadCredit("csv")}
+                >
+                  <FontAwesomeIcon icon={faDownload} /> .csv
+                </button>
+
+                <button
+                  className="btn download-btn"
+                  type="button"
+                  onClick={() => handleDownloadCredit("pdf")}
+                >
+                  <FontAwesomeIcon icon={faDownload} /> .pdf
                 </button>
               </div>
             </div>

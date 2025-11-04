@@ -40,11 +40,22 @@ function DownloadReport({ userData, onLogout }) {
     const [toDate, setToDate] = useState(() => new Date(Date.now() + 5.5 * 60 * 60 * 1000).toISOString().split("T")[0]);
 
     //for previous report
+    // const getYesterday = () => {
+    //   const today = new Date();
+    //   today.setDate(today.getDate() - 1);
+    //   return today.toISOString().split("T")[0]; // "YYYY-MM-DD"
+    // };
     const getYesterday = () => {
       const today = new Date();
       today.setDate(today.getDate() - 1);
-      return today.toISOString().split("T")[0]; // "YYYY-MM-DD"
+    
+      // Convert UTC to IST (UTC+5:30)
+      const istOffset = 5.5 * 60 * 60 * 1000; 
+      const istDate = new Date(today.getTime() + istOffset);
+    
+      return istDate.toISOString().split("T")[0]; // "YYYY-MM-DD" 
     };
+    
     
     const [fromPreviousDate, setFromPreviousDate] = useState(getYesterday());
     const [toPreviousDate, setToPreviousDate] = useState(getYesterday());
@@ -511,6 +522,7 @@ function DownloadReport({ userData, onLogout }) {
         <Sidebar isSidebarOpen={isSidebarOpen} 
           dlrType={userData.dlrType}
           isVisualizeAllowed={userData.isVisualizeAllowed}
+          userPrivileges={userData.userPrivileges}
          />
          <div className={`dashboard-main ${isSidebarOpen ? 'sidebar-open' : ''}`}>
           <div className="dashboard-content">
@@ -752,7 +764,7 @@ function DownloadReport({ userData, onLogout }) {
                 </div>
 
               <div className="download-form-actions">
-                <button className="btn download-btn" type="button" onClick={handlePreviousDownloadClick}>
+                <button className="btn download-btn" type="button" onClick={handlePreviousDownloadClick}> 
                   Download
                 </button>
               </div>

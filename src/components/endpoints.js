@@ -209,7 +209,7 @@
         generatePreviousReportWeb: {path: "mis/generateReport", server: "secondary"},
 
         generateReportMis: {path: "mis-reporter/mis/generateReport", server: "downloadReportServer"},
-        generateReportWeb: {path: "mis-reporter/mis/generateReport", server: "downloadReportServer"},
+        generateReportWeb: {path: "mis-reporter/mis/generateReport", server: "downloadReportServer"}, 
 
         //USER BLACKLIST
         addBlacklistMis: {path: "userBlackListService/addNumberInUserBlackList", server: "primary"},

@@ -342,13 +342,8 @@ const handleDownload = () => {
             .join(" ")
         : "-")
     : (row.messageText
-        ? row.messageText
-            .split(" ")
-            .map((word) =>
-              /^\d{3,}$/.test(word) ? "x".repeat(word.length) : word
-            )
-            .join(" ")
-        : "-"),
+      ? row.messageText.replace(/\d{3,}/g, (match) => "x".repeat(match.length))
+      : "-"),
         
     row.messageCount || "-",
     row.errorDesc || "-",
@@ -428,6 +423,7 @@ const changePage = (pageNumber) => {
                dlrType={userData.dlrType}
                username={userData.username}
                isVisualizeAllowed={userData.isVisualizeAllowed}
+               userPrivileges={userData.userPrivileges}
                />
                 <div className={`dashboard-main ${isSidebarOpen ? 'sidebar-open' : ''}`}>
                 <div className="dashboard-content">
@@ -609,12 +605,7 @@ const changePage = (pageNumber) => {
                                             .join(" ")
                                         : "-")
                                     : (row.messageText
-                                      ? row.messageText
-                                          .split(" ")
-                                          .map((word) =>
-                                            /^\d{3,}$/.test(word) ? "x".repeat(word.length) : word
-                                          )
-                                          .join(" ")
+                                      ? row.messageText.replace(/\d{3,}/g, (match) => "x".repeat(match.length))
                                       : "-")}
                                   </p>
                                   <p>

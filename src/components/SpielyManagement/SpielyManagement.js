@@ -434,6 +434,7 @@ function SpielyManagement({ userData, onLogout }) {
       <div className="dashboard-layout">
       <Sidebar isSidebarOpen={isSidebarOpen} 
         username={userData.username}
+        userPrivileges={userData.userPrivileges}
       />
       <div className={`dashboard-main ${isSidebarOpen ? 'sidebar-open' : ''}`}>
       <div className="dashboard-content">

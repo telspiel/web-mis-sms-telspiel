@@ -504,14 +504,36 @@ const handleScheduleMessageChange = (event) => {
 //   const limit = encoding === "plain" ? 160 : 70;
 //   setMessagePart(charCount > limit ? "multi" : "single");
 // };
+
+// const handleTextChange = (e) => {
+//   const text = e.target.value;
+//   const hasUnicode = /[^\x00-\x7F]/.test(text);
+
+//   // Update the text immediately
+//   setTemplateText(text);
+
+//   // Handle encoding switch both ways
+//   if (text.length === 0) {
+//     setEncoding("plain");
+//   } else if (hasUnicode) {
+//     if (encoding !== "unicode") setEncoding("unicode");
+//   } else {
+//     if (encoding !== "plain") setEncoding("plain");
+//   }
+
+//   // Calculate SMS credit and character count
+//   const currentEncoding = hasUnicode ? "unicode" : "plain";
+//   updateCharacterCountAndCredit(text, currentEncoding);
+// };
+
 const handleTextChange = (e) => {
   const text = e.target.value;
-  const hasUnicode = /[^\x00-\x7F]/.test(text);
+  const hasUnicode = /[^\x00-\x7F]/.test(text); // Check for Unicode characters
 
-  // Update the text immediately
   setTemplateText(text);
+  setCharacterCount(text.length);
 
-  // Handle encoding switch both ways
+  // Auto switch encoding
   if (text.length === 0) {
     setEncoding("plain");
   } else if (hasUnicode) {
@@ -520,9 +542,53 @@ const handleTextChange = (e) => {
     if (encoding !== "plain") setEncoding("plain");
   }
 
-  // Calculate SMS credit and character count
+  // Determine credits based on encoding
   const currentEncoding = hasUnicode ? "unicode" : "plain";
-  updateCharacterCountAndCredit(text, currentEncoding);
+  let credit = 0;
+
+  if (currentEncoding === "plain") {
+    if (text.length <= 160) credit = 1;
+    else if (text.length <= 306) credit = 2;
+    else credit = 2 + Math.ceil((text.length - 306) / 153);
+  } else {
+    if (text.length <= 70) credit = 1;
+    else if (text.length <= 134) credit = 2;
+    else credit = 2 + Math.ceil((text.length - 134) / 67);
+  }
+
+  setSmsCredit(credit);
+
+  const limit = currentEncoding === "plain" ? 160 : 70;
+  setMessagePart(text.length > limit ? "multi" : "single");
+
+  // 🔥 NEW LOGIC: remove short URLs one by one as their snippet is deleted
+  setSelectedShortUrls((prev) => {
+    const newSelected = [];
+    let remainingText = text; // Copy of message text to track each match separately
+
+    prev.forEach((name) => {
+      const item = shortUrlForUser.find((it) => it.name === name);
+      if (!item) return;
+
+      const parts = item.shortCode.split("/");
+      if (parts.length < 3) return;
+      parts[2] = "xxxxxx";
+      const maskedUrl = parts.join("/");
+
+      // Find the FIRST occurrence in remainingText
+      const index = remainingText.indexOf(maskedUrl);
+      if (index !== -1) {
+        newSelected.push(name); 
+        // Remove only this occurrence from our copy so duplicates can be handled separately
+        remainingText = 
+          remainingText.slice(0, index) + 
+          " ".repeat(maskedUrl.length) + 
+          remainingText.slice(index + maskedUrl.length);
+      }
+    });
+
+    return newSelected;
+  });
 };
 
 
@@ -976,6 +1042,7 @@ const saveGroupCampaign = async () => {
         <Sidebar isSidebarOpen={isSidebarOpen} 
            username={userData.username}
            isVisualizeAllowed={userData.isVisualizeAllowed}
+           userPrivileges={userData.userPrivileges}
         />
         <div className={`dashboard-main ${isSidebarOpen ? 'sidebar-open' : ''}`}>
         <div className="dashboard-content">

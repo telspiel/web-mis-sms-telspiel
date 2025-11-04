@@ -21,7 +21,8 @@
 
 .content-template-field {
   display: flex;
-  align-items: center; /* Align label and input vertically */
+  /* align-items: center; */
+  align-items: baseline;
   gap: 10px; /* Spacing between label and input */
 }
 
@@ -425,4 +426,19 @@
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
+  }
+
+  .content-template-field .input-alert-combine {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .content-template-field .note {
+    font-size: 0.9em;
+    color: #44a67e;
+    font-size: 13px !important;
+    font-style: italic;
+    text-align: start;
+    font-weight: 550;
   }

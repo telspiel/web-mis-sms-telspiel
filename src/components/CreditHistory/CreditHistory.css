@@ -148,6 +148,52 @@
     margin: 0 40px;
   }
 
+
+  /* NEW DOWNLOAD FLOW */
+  .download-modal {
+    margin-left: 15px;
+  }
+
+  .download-format-wrap {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin-bottom: 5px;
+  }
+
+  .action-download-btns {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+  }
+
+  .download-modal .download{
+    background: #373435;
+    color: #ffcc29;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+  }
+
+  .download-modal .download:hover {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    cursor: pointer;
+  }
+  
+  .download-modal .cancel{
+    background: #fb3d4e;
+    color: #fff;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+  }
+
+  .download-modal .cancel:hover {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    cursor: pointer;
+  }
+
+
 @media (max-width: 768px) {
     .credit-history-filter-wrap {
         flex-direction: column;

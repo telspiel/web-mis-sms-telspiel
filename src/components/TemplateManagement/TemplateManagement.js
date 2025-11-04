@@ -463,24 +463,103 @@ const handleAddVariable = () => {
   };
 
     // Handle file selection
+    // const handleFileUpload = (event) => {
+    //   const file = event.target.files[0];
+    //   setSelectedFile(file);
+    //   setSelectedFileName(file ? file.name : "");
+    // };
+
+    // const handleFileUpload = (event) => {
+    //   const file = event.target.files[0];
+    
+    //   if (file) {
+    //     const fileName = file.name.toLowerCase();
+    
+    //     let allowedExtensions = [];
+    //     if (fileType === "header_file") {
+    //       allowedExtensions = [".csv"];
+    //     } else if (fileType === "template_file") {
+    //       allowedExtensions = [".csv", ".xlsx", ".xls"];
+    //     }
+    
+    //     // Check if file extension matches allowed ones
+    //     const isValid = allowedExtensions.some((ext) => fileName.endsWith(ext));
+    
+    //     if (isValid) {
+    //       setSelectedFile(file);
+    //       setSelectedFileName(file.name);
+    //     } else {
+    //       // Reset file input
+    //       event.target.value = "";
+    //       setSelectedFile(null);
+    //       setSelectedFileName("");
+    //       alert(
+    //         `Invalid file type. Allowed types are: ${allowedExtensions.join(", ")}`
+    //       );
+    //     }
+    //   }
+    // };
+
     const handleFileUpload = (event) => {
       const file = event.target.files[0];
-      setSelectedFile(file);
-      setSelectedFileName(file ? file.name : "");
-    };
-
-     // Determine accepted file types according to selected values
-     const getAcceptedFileTypes = () => {
-      if (fileType === "header_file") return ".csv";
-      if (fileType === "template_file") {
-          return templateFileType === "csv"
-              ? ".csv"
-              : templateFileType === "xlsx"
-              ? ".xlsx"
-              : ".xls";
+      if (!file) return;
+    
+      const ext = file.name.split(".").pop().toLowerCase();
+    
+      // what extension is required right now?
+      let required = [];
+      if (fileType === "header_file") {
+        required = ["csv"];
+      } else if (fileType === "template_file") {
+        if (templateFileType === "csv") required = ["csv"];
+        else if (templateFileType === "xlsx") required = ["xlsx"];
+        else if (templateFileType === "xls") required = ["xls"];
       }
-      return "";
+    
+      const isValid = required.includes(ext);
+    
+      if (!isValid) {
+        // reject and reset
+        event.target.value = "";
+        setSelectedFile(null);
+        setSelectedFileName("");
+        alert(
+          `Invalid file type. Selected ".${ext}", but ${required
+            .map((e) => "." + e)
+            .join(" or ")} is allowed based on current Template File Type.`
+        );
+        return;
+      }
+    
+      // accept
+      setSelectedFile(file);
+      setSelectedFileName(file.name);
+    };
+    
+    
+
+  //========= Determine accepted file types according to selected values ============
+  //    const getAcceptedFileTypes = () => {
+  //     if (fileType === "header_file") return ".csv";
+  //     if (fileType === "template_file") {
+  //         return templateFileType === "csv"
+  //             ? ".csv"
+  //             : templateFileType === "xlsx"
+  //             ? ".xlsx"
+  //             : ".xls";
+  //     }
+  //     return "";
+  // };
+  const getAcceptedFileTypes = () => {
+    if (fileType === "header_file") return ".csv";
+    if (fileType === "template_file") {
+      if (templateFileType === "csv") return ".csv";
+      if (templateFileType === "xlsx") return ".xlsx";
+      return ".xls";
+    }
+    return "";
   };
+  
 
   //==========================API TO UPLOAD CONTENT TEMPLATE=================================
   const uploadtemplateContent = async () => {
@@ -571,6 +650,7 @@ const handleAddVariable = () => {
         dlrType={userData.dlrType}
         username={userData.username}
         isVisualizeAllowed={userData.isVisualizeAllowed}
+        userPrivileges={userData.userPrivileges}
         />
         <div className={`dashboard-main ${isSidebarOpen ? 'sidebar-open' : ''}`}>
           <div className="dashboard-content">
@@ -674,21 +754,48 @@ const handleAddVariable = () => {
                     </div>
 
                 <div className="content-template-field">
-                  <label>Content Template Name:</label>
+                  <label>Content Template Name:</label> 
+                  <div className="input-alert-combine">
                   <input
-                    type="text" name="templateName" placeholder="Template Name"
+                    type="text" 
+                    name="templateName" 
+                    placeholder="Template Name"
+                    maxLength={100}
                     value={templateName}
-                 onChange={(e) => setTemplateName(e.target.value)}
+                    // onChange={(e) => setTemplateName(e.target.value)}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      const validValue = value.replace(/[^A-Za-z0-9 ]/g, "");  // Allow only A-Z, a-z, 0-9, and spaces
+                      setTemplateName(validValue);
+                    }}
                   />
+                  <small className="note">
+                    <strong>NOTE:</strong>
+                    Special characters like % , [ ] | \ ; : " ' . ? / ~ ` &lt; &gt; are not allowed in template name
+                  </small>
+                  </div>
                 </div>
 
                 <div className="content-template-field">
                   <label>Content Template Description:</label>
+                  <div className="input-alert-combine">
                   <input
-                    type="text" name="templateDescription" placeholder="Template Description"
+                    type="text" 
+                    name="templateDescription" 
+                    placeholder="Template Description"
                     value={templateDescription}
-                 onChange={(e) => setTemplateDescription(e.target.value)}
+                    // onChange={(e) => setTemplateDescription(e.target.value)}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      const validValue = value.replace(/[^A-Za-z0-9 ]/g, "");
+                      setTemplateDescription(validValue);
+                    }}
                   />
+                  <small className="note">
+                    <strong>NOTE:</strong>
+                    Special characters like % , [ ] | \ ; : " ' . ? / ~ ` &lt; &gt; are not allowed in template description
+                  </small>
+                  </div>
                 </div>
 
                 <div className="content-template-field">

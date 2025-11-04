@@ -129,7 +129,7 @@ function Profile({ userData, onLogout }) {
     
           const validatedResponse = Endpoints.validateResponse(data);
           if (validatedResponse && validatedResponse.code === 16000) {
-            setResponseMessage(data.message);
+            setResponseMessage('Password updated. It may take up to 5 minutes to take effect');
 
             if (responseMsgRef.current) {
               responseMsgRef.current.classList.add("visible");

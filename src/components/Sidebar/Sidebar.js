@@ -19,7 +19,7 @@ import {
 import './Sidebar.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-function Sidebar({ isSidebarOpen, dlrType, username, isVisualizeAllowed}) {
+function Sidebar({ isSidebarOpen, dlrType, username, isVisualizeAllowed, userPrivileges}) {
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -34,6 +34,7 @@ function Sidebar({ isSidebarOpen, dlrType, username, isVisualizeAllowed}) {
 
   console.log(dlrType);
   console.log(username);
+  console.log(userPrivileges);
 
   useEffect(() => {
     const currentPath = location.pathname;
@@ -204,7 +205,8 @@ function Sidebar({ isSidebarOpen, dlrType, username, isVisualizeAllowed}) {
               className={`submenu-link ${location.pathname === '/template-management' ? 'active' : ''}`} 
               onClick={() => handleNavigation('/template-management')}>
               <FontAwesomeIcon icon={faRightLong} className="submenu-icons"/>
-              Add Template</a>
+              Add Template
+              </a>
             </li>
             <li>
               <a 
@@ -218,7 +220,8 @@ function Sidebar({ isSidebarOpen, dlrType, username, isVisualizeAllowed}) {
             </div>
           </li>
 
-        {dlrType !== 'MIS_PANEL' && isVisualizeAllowed !== 'N' && (
+          
+          {dlrType !== 'MIS_PANEL' && isVisualizeAllowed !== 'N' && (
         <li>
           <button className="menu-toggle" onClick={() => toggleSubMenu('spielyManagement')}>
             <FontAwesomeIcon icon={faLink} className="sidebar-icon" />
@@ -248,6 +251,46 @@ function Sidebar({ isSidebarOpen, dlrType, username, isVisualizeAllowed}) {
           </div>
         </li>
         )}
+          
+
+          {/* {(
+            (dlrType !== 'MIS_PANEL' && isVisualizeAllowed !== 'N') || 
+            (dlrType === 'MIS_PANEL' && isVisualizeAllowed === 'Y')
+          ) && (
+            <li>
+              <button className="menu-toggle" onClick={() => toggleSubMenu('spielyManagement')}>
+                <FontAwesomeIcon icon={faLink} className="sidebar-icon" />
+                Spiely Link Management
+                <FontAwesomeIcon
+                  icon={subMenuVisibility.spielyManagement ? faChevronUp : faChevronDown}
+                  className="arrow-icon"
+                />
+              </button>
+              <div className={`submenu-wrapper ${subMenuVisibility.spielyManagement ? 'open' : ''}`}>
+                <ul className={`submenu ${subMenuVisibility.spielyManagement ? 'visible' : ''}`}>
+                  <li>
+                    <a
+                      className={`submenu-link ${location.pathname === '/spiely-link' ? 'active' : ''}`}
+                      onClick={() => handleNavigation('/spiely-link')}
+                    >
+                      <FontAwesomeIcon icon={faRightLong} className="submenu-icons" />
+                      New Spiely Link
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className={`submenu-link ${location.pathname === '/domain-manager' ? 'active' : ''}`}
+                      onClick={() => handleNavigation('/domain-manager')}
+                    >
+                      <FontAwesomeIcon icon={faRightLong} className="submenu-icons" />
+                      Domain Manager
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          )} */}
+
 
         {dlrType !== 'MIS_PANEL' && (
         <li>
@@ -404,6 +447,8 @@ function Sidebar({ isSidebarOpen, dlrType, username, isVisualizeAllowed}) {
             Blacklist Contacts
           </a>
         </li>
+
+        {userPrivileges?.includes("SHOW_CREDIT_HISTORY") && (
         <li>
             <a 
             className={`submenu-link ${location.pathname === '/credit-history' ? 'active' : ''}`}
@@ -412,6 +457,8 @@ function Sidebar({ isSidebarOpen, dlrType, username, isVisualizeAllowed}) {
             Credit History
           </a>
         </li>
+        )}
+        
         {/* <li>
             <a 
             className={`submenu-link ${location.pathname === '/dlt-chain-registration' ? 'active' : ''}`}

@@ -238,12 +238,7 @@ const handleDownloadCampaign = () => {
         .map((word) => "x".repeat(word.length))
         .join(" ");
     } else {
-      return text
-        .split(" ")
-        .map((word) =>
-          /^\d{3,}$/.test(word) ? "x".repeat(word.length) : word
-        )
-        .join(" ");
+      return text.replace(/\d{3,}/g, (match) => "x".repeat(match.length));
     }
   };
 
@@ -381,6 +376,7 @@ const toggleClickerRowExpansion = (index) => {
         <Sidebar isSidebarOpen={isSidebarOpen} 
            username={userData.username}
            isVisualizeAllowed={userData.isVisualizeAllowed}
+           userPrivileges={userData.userPrivileges}
         />
           <div className={`dashboard-main ${isSidebarOpen ? 'sidebar-open' : ''}`}>
             <div className="dashboard-content">
@@ -501,13 +497,8 @@ const toggleClickerRowExpansion = (index) => {
                                             .join(" ")
                                         : "N/A")
                                     : (row.messageText
-                                        ? row.messageText
-                                            .split(" ")
-                                            .map((word) =>
-                                              /^\d{3,}$/.test(word) ? "x".repeat(word.length) : word
-                                            )
-                                            .join(" ")
-                                        : "N/A")}
+                                      ? row.messageText.replace(/\d{3,}/g, (match) => "x".repeat(match.length))
+                                      : "N/A")}
                                   </p>
                                   <p>
                                     <strong>Actions:</strong>

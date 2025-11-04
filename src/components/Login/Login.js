@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Login.css";
 import Footer from "../Footer/Footer";
 import Endpoints from "../endpoints";
@@ -46,10 +46,72 @@ function Login({ onLogin }) {
     }
   };
 
+  const [failedAttempts, setFailedAttempts] = useState([]);
+  const [isLocked, setIsLocked] = useState(false);
+  const [lockTimer, setLockTimer] = useState(0);
+
+  const handleFailedAttempt = () => {
+    const now = Date.now();
+    const updatedAttempts = [...failedAttempts, now].filter(
+      (time) => now - time <= 60 * 1000 // keep only last 1 min
+    );
+  
+    setFailedAttempts(updatedAttempts);
+  
+    if (updatedAttempts.length >= 5) {
+      // Lock for 2 minutes
+      const unlockTime = Date.now() + 120 * 1000; // store timestamp instead of just seconds
+      setIsLocked(true);
+      setLockTimer(120);
+  
+      // Save lock info in localStorage
+      localStorage.setItem("lockUntil", unlockTime);
+    }
+  };
+
+  // On component mount → restore lock state if exists
+ useEffect(() => {
+  const storedLockUntil = localStorage.getItem("lockUntil");
+  if (storedLockUntil) {
+    const remaining = Math.floor((storedLockUntil - Date.now()) / 1000);
+    if (remaining > 0) {
+      setIsLocked(true);
+      setLockTimer(remaining);
+    } else {
+      localStorage.removeItem("lockUntil");
+    }
+  }
+ }, []);
+
+ useEffect(() => {
+  let timer;
+  if (isLocked && lockTimer > 0) {
+    timer = setInterval(() => {
+      setLockTimer((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          setIsLocked(false);
+          setFailedAttempts([]);
+          localStorage.removeItem("lockUntil"); // clear when unlocked
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  }
+  return () => clearInterval(timer);
+ }, [isLocked, lockTimer]);
+  
+  
+
   const [isLoading, setIsLoading] = useState(false);
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    if (isLocked) return; // Prevent login if locked
+
     setIsLoading(true);
 
     const payload = {
@@ -70,6 +132,8 @@ function Login({ onLogin }) {
       const validatedResponse = Endpoints.validateResponse(data);
 
       if (validatedResponse && validatedResponse.code === 1000) {
+        // ✅ Successful login → reset failures
+      setFailedAttempts([]);
         setOtp("");
         if (validatedResponse.otpRequired) {
           setIsOtpRequired(true);
@@ -83,13 +147,18 @@ function Login({ onLogin }) {
             isVisualizeAllowed: validatedResponse.data.isVisualizeAllowed,
             userId: validatedResponse.data.userId,
             dlrType: validatedResponse.data.dlrType,
+            userPrivileges: validatedResponse.data.userPrivileges,
           };
           onLogin(userData);
           navigate("/dashboard");
         }
+      } else {
+        // ❌ Invalid credentials
+        handleFailedAttempt();
       }
     } catch (error) {
       console.error("Error during login:", error);
+      handleFailedAttempt();
       alert("An error occurred. Please try again later.");
     } finally {
       setIsLoading(false); // Hide the spinner after API response
@@ -127,6 +196,7 @@ function Login({ onLogin }) {
           isVisualizeAllowed: validatedResponse.data.isVisualizeAllowed,
           userId: validatedResponse.data.userId,
           dlrType: validatedResponse.data.dlrType,
+          userPrivileges: validatedResponse.data.userPrivileges,
         };
         onLogin(userData);
         navigate("/dashboard");
@@ -236,6 +306,12 @@ function Login({ onLogin }) {
         {/* <img src={leftSideImage} alt="Left Side" className="left-image" /> */}
       {/* </div> */}
 
+      {isLocked && (
+        <p style={{ color: "red" }}>
+          Too many failed attempts. Try again in {lockTimer}s.
+        </p>
+      )}
+
       {/* <div className="right-section"> */}
         <div className="login-box">
           {/* <h2>Login</h2> */}
@@ -255,6 +331,7 @@ function Login({ onLogin }) {
                   value={credentials.username}
                   onChange={handleChange}
                   required
+                  disabled={isLocked}
                 />
                 </div>
               </div>
@@ -269,13 +346,20 @@ function Login({ onLogin }) {
                     onChange={handleChange}
                     required
                     autoComplete="off"
+                    disabled={isLocked}
                   />
                   <span className="eye-icon" onClick={togglePasswordVisibility}>
                     <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
                   </span>
                 </div>
               </div>
-              <button type="submit" className="login-button">Login</button>
+              <button 
+                type="submit" 
+                className="login-button"
+                disabled={isLocked}
+              >
+                Login
+              </button>
             </form>
           ) : (
             <div className="otp-box">

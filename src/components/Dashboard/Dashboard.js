@@ -12,6 +12,8 @@ import { LineElement, PointElement } from 'chart.js';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { useNavigate } from 'react-router-dom';
 
+import { motion } from "motion/react";
+
 
 // Register the required chart components
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
@@ -461,10 +463,12 @@ const lineChartData = processedData
         lastLoginIp={userData.lastLoginIp} 
         onLogout={onLogout}/>
       <div className="dashboard-layout">
-        <Sidebar isSidebarOpen={isSidebarOpen} 
-        dlrType={userData.dlrType}
-        username={userData.username}
-        isVisualizeAllowed={userData.isVisualizeAllowed}
+        <Sidebar 
+          isSidebarOpen={isSidebarOpen} 
+          dlrType={userData.dlrType}
+          username={userData.username}
+          isVisualizeAllowed={userData.isVisualizeAllowed}
+          userPrivileges={userData.userPrivileges}
         />
         <div className={`dashboard-main ${isSidebarOpen ? 'sidebar-open' : ''}`}>
           <div className="dashboard-content">
@@ -506,38 +510,56 @@ const lineChartData = processedData
 
 
             <div className="dashboard-stats"> 
-              <div className="stat-box">
+            <motion.div
+                  className="stat-box"
+                  whileHover={{
+                    scale: 1.05,
+                    boxShadow: "0px 10px 25px rgba(0, 0, 0, 0.15)",
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 250 }}
+                >
                 <i className="stat-icon fas fa-sms"></i>
                 <div className="stat-info">
                   <h3>{dashboardData.totalSmsToday}</h3>
                   <p>Today's SMS Count</p>
                 </div>
                 <FontAwesomeIcon icon={faCalendarDay} className="dashboard-icon"/>
-              </div>
-              <div className="stat-box">
+                </motion.div>
+                <motion.div
+                    className="stat-box"
+                    whileHover={{
+                      scale: 1.05,
+                      boxShadow: "0px 10px 25px rgba(0, 0, 0, 0.15)",
+                    }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={{ type: "spring", stiffness: 250 }}
+                  >
                 <i className="stat-icon fas fa-calendar-alt"></i>
                 <div className="stat-info">
                   <h3>{dashboardData.totalSmsMonth}</h3>
                   <p>Current Month SMS Count</p>
                 </div>
                 <FontAwesomeIcon icon={faCalendarAlt} className="dashboard-icon"/>
-              </div>
-              <div className="stat-box">
+                </motion.div>
+                <motion.div
+                  className="stat-box"
+                  whileHover={{
+                    scale: 1.05,
+                    boxShadow: "0px 10px 25px rgba(0, 0, 0, 0.15)",
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 250 }}
+                >
                 <i className="stat-icon fas fa-wallet"></i>
                 <div className="stat-info-credit">
                   <div className='credit-wrap'>
                   <h3>{dashboardData.availableCredits}</h3>
                   <p>Available Credit</p>
                   </div>
-                  {/* {userData.dlrType !== "MIS_PANEL" && (
-                    <div className="credit-wrap">
-                      <h3>{dashboardData.effectiveCredits}</h3>
-                      <p>Effective Credit</p>
-                    </div>
-                  )} */}
                 </div>
                 <FontAwesomeIcon icon={faIndianRupeeSign} className="dashboard-icon"/>
-              </div>
+                </motion.div>
             </div>
 
             <div className="charts-container">
