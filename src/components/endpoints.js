@@ -80,7 +80,9 @@
 
         primary:  "https://backend3.quicksmart.in/gui-services/",
         secondary: "https://backend2.quicksmart.in/file-uploader/",
-        downloadReportServer: "https://reportdown.quicksmart.in/"
+
+        downloadReportServer: "https://reportdown.quicksmart.in/",
+
       };
   
       this.endpoints = {
@@ -182,6 +184,10 @@
         senderIdWiseReportMis: { path: "reportService/senderIdWiseReport", server: "primary" },
         senderIdWiseReportWeb: { path: "reportService/senderIdWiseReport", server: "secondary" },
 
+        //TEMPLATE ID REPORT
+        templateIdWiseReportMis: { path: "reportService/templateIdWiseReport", server: "primary" },
+        templateIdWiseReportWeb: { path: "reportService/templateIdWiseReport", server: "secondary" },
+
         //DETAILED REPORT
         senderIdAllDataMis: {path: "senderIdService/viewAllSenderIdList", server: "primary"},
         senderIdAllDataWeb: {path: "senderIdService/viewAllSenderIdList", server: "secondary"},
@@ -210,6 +216,13 @@
 
         generateReportMis: {path: "mis-reporter/mis/generateReport", server: "downloadReportServer"},
         generateReportWeb: {path: "mis-reporter/mis/generateReport", server: "downloadReportServer"}, 
+
+        //VMN Report
+        getVmnNumbersMis: {path: "reportService/vmnNumber", server: "primary"},
+        getVmnNumbersWeb: {path: "reportService/vmnNumber", server: "secondary"},
+
+        getVmnReportsMis: {path: "reportService/vmnReport", server: "primary"},
+        getVmnReportsWeb: {path: "reportService/vmnReport", server: "secondary"},
 
         //USER BLACKLIST
         addBlacklistMis: {path: "userBlackListService/addNumberInUserBlackList", server: "primary"},

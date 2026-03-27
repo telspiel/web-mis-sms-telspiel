@@ -164,3 +164,49 @@
   .groupWrapHourTime .hourAndMinute{
     padding: 0.75rem;
   }
+
+  /* Modal Box */
+.modal-box {
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 10px;
+  text-align: center;
+  width: 370px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Text */
+.modal-box p {
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #373435;
+  line-height: 1.2;
+}
+
+/* Button */
+.modal-box button {
+  padding: 8px 20px;
+  border: none;
+  background-color: #fb3d4e;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-box button:hover {
+  background-color: #fb3d4e;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+} 

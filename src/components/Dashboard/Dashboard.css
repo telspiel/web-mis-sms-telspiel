@@ -139,54 +139,68 @@
 
 
   /* ===================Scheduled Campaign alert message========================  */
-  .report-bar {
-    background-color: #44a67e;
-    color: white;
-    padding: 12px 20px;
-    margin: 0 10px;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .report-heading {
-    flex-shrink: 0;
-    margin-right: 15px;
-    z-index: 1;
-    white-space: nowrap;
-    cursor: pointer;
-  }
+.report-bar,
+.report-bar-alert {
+  background-color: #44a67e;
+  color: white;
+  padding: 5px 10px;
+  margin: 0 10px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  position: relative;     /* IMPORTANT */
+  overflow: hidden;       /* IMPORTANT */
+  height: 45px;           /* keeps bar aligned */
+  display: flex;
+  align-items: center;
+}
 
-  .report-heading:hover {
-    color: #ffcc29;
-    text-decoration: underline;
+.report-bar-alert {
+  background-color: #f44336;
+  margin-bottom: 10px;
+  font-weight: 700 !important;
+}
+
+.report-heading {
+  z-index: 3;
+  flex-shrink: 0;
+  margin-right: 15px;
+  white-space: nowrap;
+}
+
+.scrolling-wrapper {
+  position: absolute;     /* IMPORTANT: removes flex issue */
+  left: 290px;            /* space after heading */
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  overflow: hidden;
+}
+
+.scrolling-wrapper-alert {
+  position: absolute;     
+  left: 160px;           
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  overflow: hidden;
+}
+
+.scrolling-text {
+  display: inline-block;
+  white-space: nowrap;
+  animation: scrollText 25s linear infinite;
+}
+
+@keyframes scrollText {
+  from {
+    transform: translateX(100%);
   }
-  
-  .scrolling-wrapper {
-    overflow: hidden;
-    position: relative;
-    width: 100%;
+  to {
+    transform: translateX(-100%);
   }
-  
-  .scrolling-text {
-    display: inline-block;
-    white-space: nowrap;
-    padding-left: 100%;
-    animation: scrollText 25s linear infinite; /* Fixed duration for consistent speed */
-  }
-  
-  @keyframes scrollText {
-    from {
-      transform: translateX(0%);
-    }
-    to {
-      transform: translateX(-100%);
-    }
-  }
+}
+
   
   
 /* ===================Scheduled Campaign alert message========================  */
@@ -221,14 +235,25 @@
 .alert-popup h2 {
   margin-top: 0;
   font-size: 22px;
-  font-weight: bold;
+  font-weight: 700;
   margin-bottom: 15px;
   color: #000;
 }
 
 .alert-popup p {
-  font-size: 16px;
-  color: #373435;
+  font-size: 17px;
+  color: #f44336;
+  font-weight: 600;
+  animation: blinkText 0.8s ease-in-out 3;
+}
+
+@keyframes blinkText {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 .alert-popup .close-button {

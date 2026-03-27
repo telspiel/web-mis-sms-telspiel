@@ -252,39 +252,75 @@ function AddSenderId({ userData, onLogout }) {
   };
 
   //========================To UPLOAD sender id=============================
+  
   // const handleFileChange = (event) => {
   //   const file = event.target.files[0];
-  //   setFile(file);
-  //   setFileName(file ? file.name : "");
-  // };
   
+  //   if (file) {
+  //     const fileName = file.name.toLowerCase();
+  //     const fileSizeMB = file.size / (1024 * 1024); // convert bytes → MB
+  
+  //     if (!fileName.endsWith(".csv")) {
+  //       event.target.value = "";
+  //       setFile(null);
+  //       setFileName("");
+  //       alert("Invalid file type. Only .csv files are allowed.");
+  //       return;
+  //     }
+  
+  //     if (fileSizeMB > 10) {
+  //       event.target.value = "";
+  //       setFile(null);
+  //       setFileName("");
+  //       alert("File is too large. Maximum allowed size is 10 MB.");
+  //       return;
+  //     }
+  
+  //     // Valid case
+  //     setFile(file);
+  //     setFileName(file.name);
+  //   }
+  // };
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
   
-    if (file) {
-      const fileName = file.name.toLowerCase();
-      const fileSizeMB = file.size / (1024 * 1024); // convert bytes → MB
+    if (!file) return;
   
-      if (!fileName.endsWith(".csv")) {
-        event.target.value = "";
-        setFile(null);
-        setFileName("");
-        alert("Invalid file type. Only .csv files are allowed.");
-        return;
-      }
+    const fileName = file.name;
+    const fileNameLower = fileName.toLowerCase();
+    const fileSizeMB = file.size / (1024 * 1024);
   
-      if (fileSizeMB > 10) {
-        event.target.value = "";
-        setFile(null);
-        setFileName("");
-        alert("File is too large. Maximum allowed size is 10 MB.");
-        return;
-      }
-  
-      // Valid case
-      setFile(file);
-      setFileName(file.name);
+    //Check for spaces in file name
+    if (fileName.includes(" ")) {
+      event.target.value = "";
+      setFile(null);
+      setFileName("");
+      alert("File name should not contain any space");
+      return;
     }
+  
+    //Check file type
+    if (!fileNameLower.endsWith(".csv")) {
+      event.target.value = "";
+      setFile(null);
+      setFileName("");
+      alert("Invalid file type. Only .csv files are allowed.");
+      return;
+    }
+  
+    //Check file size
+    if (fileSizeMB > 10) {
+      event.target.value = "";
+      setFile(null);
+      setFileName("");
+      alert("File is too large. Maximum allowed size is 10 MB.");
+      return;
+    }
+  
+    //Valid case
+    setFile(file);
+    setFileName(fileName);
   };
   
 

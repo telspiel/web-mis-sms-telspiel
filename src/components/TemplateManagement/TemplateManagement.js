@@ -153,7 +153,9 @@ const filteredTemplates = contentTemplateList.filter((template) => {
     .join(" ")
     .toLowerCase();
   return combinedText.includes(searchQuery);
-}); 
+})
+.slice()    //creating copy of response    
+.reverse(); //reversing order of response displaying in the
 
 
 //Delete the selected content type from the table
@@ -463,12 +465,7 @@ const handleAddVariable = () => {
   };
 
     // Handle file selection
-    // const handleFileUpload = (event) => {
-    //   const file = event.target.files[0];
-    //   setSelectedFile(file);
-    //   setSelectedFileName(file ? file.name : "");
-    // };
-
+  
     // const handleFileUpload = (event) => {
     //   const file = event.target.files[0];
     
@@ -500,11 +497,57 @@ const handleAddVariable = () => {
     //   }
     // };
 
+    // const handleFileUpload = (event) => {
+    //   const file = event.target.files[0];
+    //   if (!file) return;
+    
+    //   const ext = file.name.split(".").pop().toLowerCase();
+    
+    //   // what extension is required right now?
+    //   let required = [];
+    //   if (fileType === "header_file") {
+    //     required = ["csv"];
+    //   } else if (fileType === "template_file") {
+    //     if (templateFileType === "csv") required = ["csv"];
+    //     else if (templateFileType === "xlsx") required = ["xlsx"];
+    //     else if (templateFileType === "xls") required = ["xls"];
+    //   }
+    
+    //   const isValid = required.includes(ext);
+    
+    //   if (!isValid) {
+    //     // reject and reset
+    //     event.target.value = "";
+    //     setSelectedFile(null);
+    //     setSelectedFileName("");
+    //     alert(
+    //       `Invalid file type. Selected ".${ext}", but ${required
+    //         .map((e) => "." + e)
+    //         .join(" or ")} is allowed based on current Template File Type.`
+    //     );
+    //     return;
+    //   }
+    
+    //   // accept
+    //   setSelectedFile(file);
+    //   setSelectedFileName(file.name);
+    // };
+
     const handleFileUpload = (event) => {
       const file = event.target.files[0];
       if (!file) return;
     
-      const ext = file.name.split(".").pop().toLowerCase();
+      const fileName = file.name;
+      const ext = fileName.split(".").pop().toLowerCase();
+    
+      // 🔴 Check for spaces in file name
+      if (fileName.includes(" ")) {
+        event.target.value = "";
+        setSelectedFile(null);
+        setSelectedFileName("");
+        alert("File name should not contain any space");
+        return;
+      }
     
       // what extension is required right now?
       let required = [];
@@ -531,9 +574,9 @@ const handleAddVariable = () => {
         return;
       }
     
-      // accept
+      // ✅ accept
       setSelectedFile(file);
-      setSelectedFileName(file.name);
+      setSelectedFileName(fileName);
     };
     
     
@@ -1182,4 +1225,4 @@ const handleAddVariable = () => {
   )
 }
 
-export default TemplateManagement
+export default TemplateManagement;

@@ -368,6 +368,76 @@ const updateCharacterCountAndCredit = (text, currentEncoding) => {
   setSmsCredit(credit);
 };
 
+// ================================================================== 
+const [showConflictModal, setShowConflictModal] = useState(false);
+
+const getAllScheduledCampaign = async () => {
+  try {
+    const response = await fetch(Endpoints.get('viewScheduledCampaign'), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: userData.authJwtToken,
+      },
+      body: JSON.stringify({
+        loggedInUserName: userData.username,
+        fromDate: scheduleDate,
+        toDate: scheduleDate,
+        campaignType: "All",
+      }),
+    });
+
+    const res = await response.json();
+
+    const campaignList = res?.data?.consolidateCampaignList || [];
+
+    // Format selected time (HH:mm)
+    const selectedTime = `${scheduleHour.toString().padStart(2, '0')}:${scheduleMinute.toString().padStart(2, '0')}`;
+
+    // Convert scheduleDate (yyyy-mm-dd) → dd-mm-yyyy
+    const formattedDate = scheduleDate.split("-").reverse().join("-");
+
+    const isAlreadyScheduled = campaignList.some((campaign) => {
+      return (
+        campaign.schdeuledDate === formattedDate &&
+        campaign.scheduledTime === selectedTime
+      );
+    });
+
+    if (isAlreadyScheduled) {
+      if (isAlreadyScheduled) {
+        setShowConflictModal(true);
+      
+        setScheduleDate(() => new Date(Date.now() + 5.5 * 60 * 60 * 1000).toISOString().split("T")[0]);
+        setScheduleHour("");
+        setScheduleMinute("");
+      
+        return;
+      }
+
+      // Reset fields after alert OK
+      setScheduleDate(() => new Date(Date.now() + 5.5 * 60 * 60 * 1000).toISOString().split("T")[0]);
+      setScheduleHour("");
+      setScheduleMinute("");
+
+      return;
+    }
+  
+  } catch (error) {
+    console.error("Error fetching scheduled campaigns:", error);
+  }
+};
+
+useEffect(() => {
+  if (
+    scheduleDate &&
+    scheduleHour !== "" &&
+    scheduleMinute !== ""
+  ) {
+    getAllScheduledCampaign();
+  }
+}, [scheduleDate, scheduleHour, scheduleMinute]);
+// ================================================================== 
 
 
 
@@ -1481,6 +1551,14 @@ const saveGroupCampaign = async () => {
             <Footer/>
         </div>
       </div>
+      {showConflictModal && (
+        <div className="modal-overlay">
+          <div className="modal-box">
+            <p>A campaign is already scheduled for the selected date and time. Please choose a different time.</p>
+            <button onClick={() => setShowConflictModal(false)}>OK</button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -5,6 +5,19 @@ import Footer from '../Footer/Footer';
 import "./SummaryReport.css";
 import Endpoints from '../endpoints';
 
+import { Bar } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+
 function SummaryReport({ userData, onLogout }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
@@ -153,6 +166,65 @@ const toggleRowExpansion = (index) => {
   }));
 };
 
+const [viewMode, setViewMode] = useState("table");
+
+// ✅ Calculate total values for the graph
+const totalData = [
+  summaryReportTable.reduce((acc, row) => acc + Number(row.totalRequest || 0), 0),
+  summaryReportTable.reduce((acc, row) => acc + Number(row.totalRejected || 0), 0),
+  summaryReportTable.reduce((acc, row) => acc + Number(row.totalSubmit || 0), 0),
+  summaryReportTable.reduce((acc, row) => acc + Number(row.totalDelivered || 0), 0),
+  summaryReportTable.reduce((acc, row) => acc + Number(row.totalFailed || 0), 0),
+  summaryReportTable.reduce((acc, row) => acc + Number(row.totalAwaited || 0), 0),
+];
+
+// ✅ Chart.js dataset
+const chartData = {
+  labels: [
+    "Total Request",
+    "Total Rejected",
+    "Total Submit",
+    "Total Delivered",
+    "Total Failed",
+    "Total Awaited",
+  ],
+  datasets: [
+    {
+      label: "Summary Totals",
+      data: totalData,
+      backgroundColor: [
+        "#3b82f6",
+        "#ef4444",
+        "#22c55e",
+        "#facc15",
+        "#a855f7",
+        "#14b8a6",
+      ],
+      borderRadius: 6,
+    },
+  ],
+};
+
+// ✅ Chart.js options
+const chartOptions = {
+  responsive: true,
+  plugins: {
+    legend: { display: true, position: "top" },
+    title: {
+      display: true,
+      text: "Summary Report Overview",
+    },
+  },
+  scales: {
+    x: {
+      ticks: { font: { size: 12 } },
+    },
+    y: {
+      beginAtZero: true,
+      ticks: { stepSize: 100 },
+    },
+  },
+};
   
       
   return (
@@ -211,68 +283,88 @@ const toggleRowExpansion = (index) => {
             </div>
 
             <div className="wrap-summary-report">
-            {isLoading ? ( 
-              <div className="loader-overlay">
-                <div className="loader"></div>
-                <p>Please wait...</p>
-              </div>
-            ) : (
-              <>
+      {isLoading ? (
+        <div className="loader-overlay">
+          <div className="loader"></div>
+          <p>Please wait...</p>
+        </div>
+      ) : (
+        <>
+          {/* <div className="view-toggle-container">
+            <button
+              className={`toggle-btn ${viewMode === "table" ? "active" : ""}`}
+              onClick={() => setViewMode("table")}
+            >
+              Table
+            </button>
+            <button
+              className={`toggle-btn ${viewMode === "graph" ? "active" : ""}`}
+              onClick={() => setViewMode("graph")}
+            >
+              Graph
+            </button>
+          </div> */}
+
+          {/* --- TABLE VIEW --- */}
+          {viewMode === "table" ? (
+            <>
               <div className="summary-table-container">
-              <table className="summary-report-table">
-                <thead>
-                  <tr>
-                    <th className="toggle-button-expansion"></th> 
-                    <th>Summary Date</th>
-                    <th>Total Request</th>
-                    <th>Total Rejected</th>
-                    <th>Total Submit</th>
-                    <th>Total Delivered</th>
-                    <th className="under-1000px">Total Failed</th>
-                    <th className="under-1000px">Total Awaited</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {summaryReportTable.length > 0 ? (
-                    <>
-                      {summaryReportTable.map((row, index) => (
-                        <React.Fragment key={index}>
-                          <tr>
-                            <td className="toggle-button-expansion">
-                              <button
-                                className="summary-report-expand-btn"
-                                onClick={() => toggleRowExpansion(index)}
-                              >
-                                {expandedRows[index] ? "−" : "+"}
-                              </button>
-                            </td>
-                            <td>{row.summaryDate}</td>
-                            <td>{row.totalRequest}</td>
-                            <td>{row.totalRejected}</td>
-                            <td>{row.totalSubmit}</td>
-                            <td>{row.totalDelivered}</td>
-                            <td className="under-1000px">{row.totalFailed}</td>
-                            <td className="under-1000px">{row.totalAwaited}</td>
-                          </tr>
-                          {expandedRows[index] && (
-                            <tr className="summary-report-expanded-row">
-                              <td></td>
-                              <td colSpan="2">
-                                <div className="summary-report-expanded-content">
-                                  <p>
-                                    <strong>Total Failed:</strong> {row.totalFailed || "N/A"}
-                                  </p>
-                                  <p>
-                                    <strong>Total Awaited:</strong> {row.totalAwaited || "N/A"}
-                                  </p>
-                                </div>
+                <table className="summary-report-table">
+                  <thead>
+                    <tr>
+                      <th className="toggle-button-expansion"></th>
+                      <th>Summary Date</th>
+                      <th>Total Request</th>
+                      <th>Total Rejected</th>
+                      <th>Total Submit</th>
+                      <th>Total Delivered</th>
+                      <th className="under-1000px">Total Failed</th>
+                      <th className="under-1000px">Total Awaited</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {summaryReportTable.length > 0 ? (
+                      <>
+                        {summaryReportTable.map((row, index) => (
+                          <React.Fragment key={index}>
+                            <tr>
+                              <td className="toggle-button-expansion">
+                                <button
+                                  className="summary-report-expand-btn"
+                                  onClick={() => toggleRowExpansion(index)}
+                                >
+                                  {expandedRows[index] ? "−" : "+"}
+                                </button>
                               </td>
+                              <td>{row.summaryDate}</td>
+                              <td>{row.totalRequest}</td>
+                              <td>{row.totalRejected}</td>
+                              <td>{row.totalSubmit}</td>
+                              <td>{row.totalDelivered}</td>
+                              <td className="under-1000px">{row.totalFailed}</td>
+                              <td className="under-1000px">{row.totalAwaited}</td>
                             </tr>
-                          )}
-                        </React.Fragment>
-                      ))}
-                      {/* Calculate the total count */}
-                      {summaryReportTable.length > 0 && (
+                            {expandedRows[index] && (
+                              <tr className="summary-report-expanded-row">
+                                <td></td>
+                                <td colSpan="2">
+                                  <div className="summary-report-expanded-content">
+                                    <p>
+                                      <strong>Total Failed:</strong>{" "}
+                                      {row.totalFailed || "N/A"}
+                                    </p>
+                                    <p>
+                                      <strong>Total Awaited:</strong>{" "}
+                                      {row.totalAwaited || "N/A"}
+                                    </p>
+                                  </div>
+                                </td>
+                              </tr>
+                            )}
+                          </React.Fragment>
+                        ))}
+
+                        {/* Total Row */}
                         <tr className="summary-report-total-row">
                           <td className="toggle-button-expansion"><strong></strong></td>
                           <td>Total</td>
@@ -295,20 +387,30 @@ const toggleRowExpansion = (index) => {
                             {summaryReportTable.reduce((acc, row) => acc + Number(row.totalAwaited || 0), 0)}
                           </strong></td>
                         </tr>
-                      )}
-                    </>
-                  ) : (
-                    <tr>
-                      <td colSpan="8" style={{ textAlign: "center" }}>No Data Available</td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-              </div> 
-              <p class="table-entries">There are total <strong>{summaryReportTable.length}</strong> entries</p>
-              </>
-            )}
+                      </>
+                    ) : (
+                      <tr>
+                        <td colSpan="8" style={{ textAlign: "center" }}>
+                          No Data Available
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
               </div>
+              <p className="table-entries">
+                There are total <strong>{summaryReportTable.length}</strong> entries
+              </p>
+            </>
+          ) : (
+            // --- GRAPH VIEW ---
+            <div className="graph-container">
+              <Bar data={chartData} options={chartOptions} />
+            </div>
+          )}
+        </>
+      )}
+    </div>
           </div>
           <Footer /> 
         </div>

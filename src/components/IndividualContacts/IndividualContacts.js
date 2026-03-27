@@ -448,21 +448,50 @@ function IndividualContacts({ userData, onLogout }) {
       //     setSelectedFile(null);
       //   }
       // };
-      const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const fileType = file.type;
-            const fileName = file.name;
-                if (fileType === "text/plain" || fileName.toLowerCase().endsWith(".csv")) {
-                setSelectedFile(file);
-            } else {
-                alert("Only .txt and .csv files are allowed.");
-                e.target.value = ""; // Reset file input
-                setSelectedFile(null);
-            }
-        } else {
-            setSelectedFile(null); // Reset if no file is selected
+
+    //   const handleFileChange = (e) => {
+    //     const file = e.target.files[0];
+    //     if (file) {
+    //         const fileType = file.type;
+    //         const fileName = file.name;
+    //             if (fileType === "text/plain" || fileName.toLowerCase().endsWith(".csv")) {
+    //             setSelectedFile(file);
+    //         } else {
+    //             alert("Only .txt and .csv files are allowed.");
+    //             e.target.value = ""; // Reset file input
+    //             setSelectedFile(null);
+    //         }
+    //     } else {
+    //         setSelectedFile(null); // Reset if no file is selected
+    //     }
+    // };
+    
+    const handleFileChange = (e) => {
+      const file = e.target.files[0];
+    
+      if (file) {
+        const fileType = file.type;
+        const fileName = file.name;
+    
+        //Check for spaces in file name
+        if (fileName.includes(" ")) {
+          alert("File name should not contain any space");
+          e.target.value = "";
+          setSelectedFile(null);
+          return;
         }
+    
+        //Check file type (.txt or .csv)
+        if (fileType === "text/plain" || fileName.toLowerCase().endsWith(".csv")) {
+          setSelectedFile(file);
+        } else {
+          alert("Only .txt and .csv files are allowed.");
+          e.target.value = ""; // Reset file input
+          setSelectedFile(null);
+        }
+      } else {
+        setSelectedFile(null); // Reset if no file is selected
+      }
     };
     
 

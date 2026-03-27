@@ -46,61 +46,61 @@ function Login({ onLogin }) {
     }
   };
 
-  const [failedAttempts, setFailedAttempts] = useState([]);
-  const [isLocked, setIsLocked] = useState(false);
-  const [lockTimer, setLockTimer] = useState(0);
+  // const [failedAttempts, setFailedAttempts] = useState([]);
+  // const [isLocked, setIsLocked] = useState(false);
+  // const [lockTimer, setLockTimer] = useState(0);
 
-  const handleFailedAttempt = () => {
-    const now = Date.now();
-    const updatedAttempts = [...failedAttempts, now].filter(
-      (time) => now - time <= 60 * 1000 // keep only last 1 min
-    );
+  // const handleFailedAttempt = () => {
+  //   const now = Date.now();
+  //   const updatedAttempts = [...failedAttempts, now].filter(
+  //     (time) => now - time <= 60 * 1000 // keep only last 1 min
+  //   );
   
-    setFailedAttempts(updatedAttempts);
+  //   setFailedAttempts(updatedAttempts);
   
-    if (updatedAttempts.length >= 5) {
-      // Lock for 2 minutes
-      const unlockTime = Date.now() + 120 * 1000; // store timestamp instead of just seconds
-      setIsLocked(true);
-      setLockTimer(120);
+  //   if (updatedAttempts.length >= 5) {
+  //     // Lock for 2 minutes
+  //     const unlockTime = Date.now() + 120 * 1000; 
+  //     setIsLocked(true);
+  //     setLockTimer(120);
   
-      // Save lock info in localStorage
-      localStorage.setItem("lockUntil", unlockTime);
-    }
-  };
+  //     // Save lock info in localStorage
+  //     localStorage.setItem("lockUntil", unlockTime);
+  //   }
+  // };
 
   // On component mount → restore lock state if exists
- useEffect(() => {
-  const storedLockUntil = localStorage.getItem("lockUntil");
-  if (storedLockUntil) {
-    const remaining = Math.floor((storedLockUntil - Date.now()) / 1000);
-    if (remaining > 0) {
-      setIsLocked(true);
-      setLockTimer(remaining);
-    } else {
-      localStorage.removeItem("lockUntil");
-    }
-  }
- }, []);
+//  useEffect(() => {
+//   const storedLockUntil = localStorage.getItem("lockUntil");
+//   if (storedLockUntil) {
+//     const remaining = Math.floor((storedLockUntil - Date.now()) / 1000);
+//     if (remaining > 0) {
+//       setIsLocked(true);
+//       setLockTimer(remaining);
+//     } else {
+//       localStorage.removeItem("lockUntil");
+//     }
+//   }
+//  }, []);
 
- useEffect(() => {
-  let timer;
-  if (isLocked && lockTimer > 0) {
-    timer = setInterval(() => {
-      setLockTimer((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          setIsLocked(false);
-          setFailedAttempts([]);
-          localStorage.removeItem("lockUntil"); // clear when unlocked
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-  }
-  return () => clearInterval(timer);
- }, [isLocked, lockTimer]);
+//  useEffect(() => {
+//   let timer;
+//   if (isLocked && lockTimer > 0) {
+//     timer = setInterval(() => {
+//       setLockTimer((prev) => {
+//         if (prev <= 1) {
+//           clearInterval(timer);
+//           setIsLocked(false);
+//           setFailedAttempts([]);
+//           localStorage.removeItem("lockUntil");
+//           return 0;
+//         }
+//         return prev - 1;
+//       });
+//     }, 1000);
+//   }
+//   return () => clearInterval(timer);
+//  }, [isLocked, lockTimer]);
   
   
 
@@ -110,7 +110,7 @@ function Login({ onLogin }) {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (isLocked) return; // Prevent login if locked
+    // if (isLocked) return; 
 
     setIsLoading(true);
 
@@ -133,7 +133,7 @@ function Login({ onLogin }) {
 
       if (validatedResponse && validatedResponse.code === 1000) {
         // ✅ Successful login → reset failures
-      setFailedAttempts([]);
+      // setFailedAttempts([]);
         setOtp("");
         if (validatedResponse.otpRequired) {
           setIsOtpRequired(true);
@@ -154,11 +154,11 @@ function Login({ onLogin }) {
         }
       } else {
         // ❌ Invalid credentials
-        handleFailedAttempt();
+        // handleFailedAttempt();
       }
     } catch (error) {
       console.error("Error during login:", error);
-      handleFailedAttempt();
+      // handleFailedAttempt();
       alert("An error occurred. Please try again later.");
     } finally {
       setIsLoading(false); // Hide the spinner after API response
@@ -303,14 +303,12 @@ function Login({ onLogin }) {
           <a href="https://web.rcssms.in/login" className="service-box" target="_blank" rel="noopener noreferrer">Rich Communication Services</a>
           <a href="https://app.habitic.in/login" className="service-box" target="_blank" rel="noopener noreferrer">Voice Solutions</a>
         </div>
-        {/* <img src={leftSideImage} alt="Left Side" className="left-image" /> */}
-      {/* </div> */}
 
-      {isLocked && (
+      {/* {isLocked && (
         <p style={{ color: "red" }}>
           Too many failed attempts. Try again in {lockTimer}s.
         </p>
-      )}
+      )} */}
 
       {/* <div className="right-section"> */}
         <div className="login-box">
@@ -331,7 +329,7 @@ function Login({ onLogin }) {
                   value={credentials.username}
                   onChange={handleChange}
                   required
-                  disabled={isLocked}
+                  // disabled={isLocked}
                 />
                 </div>
               </div>
@@ -346,7 +344,7 @@ function Login({ onLogin }) {
                     onChange={handleChange}
                     required
                     autoComplete="off"
-                    disabled={isLocked}
+                    // disabled={isLocked}
                   />
                   <span className="eye-icon" onClick={togglePasswordVisibility}>
                     <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
@@ -356,7 +354,7 @@ function Login({ onLogin }) {
               <button 
                 type="submit" 
                 className="login-button"
-                disabled={isLocked}
+                // disabled={isLocked}
               >
                 Login
               </button>

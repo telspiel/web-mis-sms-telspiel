@@ -17,10 +17,12 @@ import GroupCampaign from './components/GroupCampaign/GroupCampaign';
 import ScheduledCampaign from './components/ScheduledCampaign/ScheduledCampaign';
 import SummaryReport from './components/SummaryReport/SummaryReport';
 import SenderIdReport from './components/SenderIdReport/SenderIdReport';
+import TemplateIdReport from './components/TemplateIdReport/TemplateIdReport';
 import DetailedReport from './components/DetailedReport.js/DetailedReport';
 import CampaignReport from './components/CampaignReport/CampaignReport';
 import ClickerReport from './components/ClickerReport/ClickerReport';
 import DownloadReport from './components/DownloadReport/DownloadReport';
+import VMNReport from './components/VMNReport/VMNReport';
 import IndividualContacts from './components/IndividualContacts/IndividualContacts';
 import GroupContacts from './components/GroupContacts/GroupContacts';
 import CreditHistory from './components/CreditHistory/CreditHistory';
@@ -151,10 +153,12 @@ function App() {
             <Route path="/scheduled-campaign" element={<ScheduledCampaign userData={userData} onLogout={handleLogout} />} />
             <Route path="/summary-report" element={<SummaryReport userData={userData} onLogout={handleLogout} />} />
             <Route path="/sender-id-report" element={<SenderIdReport userData={userData} onLogout={handleLogout} />} />
+            <Route path="/template-id-report" element={<TemplateIdReport userData={userData} onLogout={handleLogout} />} />
             <Route path="/detailed-report" element={<DetailedReport userData={userData} onLogout={handleLogout} />} />
             <Route path="/campaign-report" element={<CampaignReport userData={userData} onLogout={handleLogout} />} />
             <Route path="/clicker-report" element={<ClickerReport userData={userData} onLogout={handleLogout} />} />
             <Route path="/download-report" element={<DownloadReport userData={userData} onLogout={handleLogout} />} />
+            <Route path="/vmn-report" element={<VMNReport userData={userData} onLogout={handleLogout} />} />
             <Route path="/individual-contacts" element={<IndividualContacts userData={userData} onLogout={handleLogout} />} />
             <Route path="/group-contacts" element={<GroupContacts userData={userData} onLogout={handleLogout} />} />
             <Route path="/credit-history" element={<CreditHistory userData={userData} onLogout={handleLogout} />} />

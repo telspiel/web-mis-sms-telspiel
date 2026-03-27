@@ -43,7 +43,7 @@ function Sidebar({ isSidebarOpen, dlrType, username, isVisualizeAllowed, userPri
       dltManagement: ['/add-senderid', '/template-management', '/dlt-chain-registration'].includes(currentPath),
       spielyManagement: ['/spiely-link', '/domain-manager'].includes(currentPath),
       campaignManagement: ['/quick-campaign', '/upload-campaign', '/dynamic-campaign', '/group-campaign', '/scheduled-campaign'].includes(currentPath),
-      reportManagement: ['/summary-report', '/sender-id-report', '/detailed-report', '/campaign-report', '/clicker-report', '/download-report'].includes(currentPath),
+      reportManagement: ['/summary-report', '/sender-id-report', '/template-id-report', '/detailed-report', '/campaign-report', '/clicker-report', '/download-report', '/vmn-report'].includes(currentPath),
       phonemanagement: ['/individual-contacts', '/group-contacts'].includes(currentPath),
     });
   }, [location.pathname]); 
@@ -78,78 +78,81 @@ function Sidebar({ isSidebarOpen, dlrType, username, isVisualizeAllowed, userPri
 
   const hideDownloadReport = ['testweb', 'apitesting'];
 
+  const showVmnReport = ['user4', 'apitesting'];
+
   //SPEAK TO SEARCH
-  const [searchInput, setSearchInput] = useState('');
-  const [isListening, setIsListening] = useState(false);
+  // const [searchInput, setSearchInput] = useState('');
+  // const [isListening, setIsListening] = useState(false);
 
-  const menuRoutes = {
-    dashboard: '/dashboard',
-    'add sender id': '/add-senderid',
-    'add template': '/template-management',
-    'dlt chain registration': '/dlt-chain-registration',
-    'new spiely link': '/spiely-link',
-    'domain manager': '/domain-manager',
-    'quick campaign': '/quick-campaign',
-    'upload campaign': '/upload-campaign',
-    'dynamic campaign': '/dynamic-campaign',
-    'group campaign': '/group-campaign',
-    'scheduled campaign': '/scheduled-campaign',
-    'summary report': '/summary-report',
-    'sender id report': '/sender-id-report',
-    'detailed report': '/detailed-report',
-    'campaign report': '/campaign-report',
-    'clicker report': '/clicker-report',
-    'download report': '/download-report',
-    'individual contacts': '/individual-contacts',
-    'group contacts': '/group-contacts',
-    'blacklist contacts': '/blacklist-contacts',
-    'credit history': '/credit-history',
-  };
+  // const menuRoutes = {
+  //   dashboard: '/dashboard',
+  //   'add sender id': '/add-senderid',
+  //   'add template': '/template-management',
+  //   'dlt chain registration': '/dlt-chain-registration',
+  //   'new spiely link': '/spiely-link',
+  //   'domain manager': '/domain-manager',
+  //   'quick campaign': '/quick-campaign',
+  //   'upload campaign': '/upload-campaign',
+  //   'dynamic campaign': '/dynamic-campaign',
+  //   'group campaign': '/group-campaign',
+  //   'scheduled campaign': '/scheduled-campaign',
+  //   'summary report': '/summary-report',
+  //   'sender id report': '/sender-id-report',
+  //   'detailed report': '/detailed-report',
+  //   'campaign report': '/campaign-report',
+  //   'clicker report': '/clicker-report',
+  //   'download report': '/download-report',
+  //   'vmn report': '/vmn-report',
+  //   'individual contacts': '/individual-contacts',
+  //   'group contacts': '/group-contacts',
+  //   'blacklist contacts': '/blacklist-contacts',
+  //   'credit history': '/credit-history',
+  // };
 
-  const handleVoiceSearch = () => {
-    const SpeechRecognition =
-      window.SpeechRecognition || window.webkitSpeechRecognition;
+  // const handleVoiceSearch = () => {
+  //   const SpeechRecognition =
+  //     window.SpeechRecognition || window.webkitSpeechRecognition;
 
-    if (!SpeechRecognition) {
-      alert('Speech recognition not supported in this browser.');
-      return;
-    }
+  //   if (!SpeechRecognition) {
+  //     alert('Speech recognition not supported in this browser.');
+  //     return;
+  //   }
 
-    const recognition = new SpeechRecognition();
-    recognition.lang = 'en-US';
+  //   const recognition = new SpeechRecognition();
+  //   recognition.lang = 'en-US';
 
-    setIsListening(true);
-    recognition.start();
+  //   setIsListening(true);
+  //   recognition.start();
 
-    recognition.onresult = function (event) {
-      const transcript = event.results[0][0].transcript.toLowerCase().trim();
-      setSearchInput(transcript);
+  //   recognition.onresult = function (event) {
+  //     const transcript = event.results[0][0].transcript.toLowerCase().trim();
+  //     setSearchInput(transcript);
 
-      const matchedKey = Object.keys(menuRoutes).find((key) =>
-        transcript.includes(key)
-      );
+  //     const matchedKey = Object.keys(menuRoutes).find((key) =>
+  //       transcript.includes(key)
+  //     );
 
-      setIsListening(false);
+  //     setIsListening(false);
 
-      if (matchedKey) {
-        // Small delay to show recognized text before redirect
-        setTimeout(() => {
-          handleNavigation(menuRoutes[matchedKey]);
-        }, 500); // 500ms delay
-      } else {
-        alert('No match found');
-      }
-    };
+  //     if (matchedKey) {
+  //       // Small delay to show recognized text before redirect
+  //       setTimeout(() => {
+  //         handleNavigation(menuRoutes[matchedKey]);
+  //       }, 500); // 500ms delay
+  //     } else {
+  //       alert('No match found');
+  //     }
+  //   };
 
-    recognition.onerror = function (event) {
-      setIsListening(false);
-      alert('Voice recognition error: ' + event.error);
-    };
+  //   recognition.onerror = function (event) {
+  //     setIsListening(false);
+  //     alert('Voice recognition error: ' + event.error);
+  //   };
 
-    recognition.onend = function () {
-      setIsListening(false);
-    };
-  };
+  //   recognition.onend = function () {
+  //     setIsListening(false);
+  //   };
+  // };
 
   return (
     <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
@@ -371,6 +374,13 @@ function Sidebar({ isSidebarOpen, dlrType, username, isVisualizeAllowed, userPri
             </li>
             <li>
               <a 
+              className={`submenu-link ${location.pathname === '/template-id-report' ? 'active' : ''}`} 
+              onClick={() => handleNavigation('/template-id-report')}>
+              <FontAwesomeIcon icon={faRightLong} className="submenu-icons"/>
+              Template Id Wise Report</a>
+            </li>  
+            <li>
+              <a 
               className={`submenu-link ${location.pathname === '/detailed-report' ? 'active' : ''}`} 
               onClick={() => handleNavigation('/detailed-report')}>
               <FontAwesomeIcon icon={faRightLong} className="submenu-icons"/>
@@ -387,6 +397,7 @@ function Sidebar({ isSidebarOpen, dlrType, username, isVisualizeAllowed, userPri
             </li>
             )}
 
+               
             <li>
               <a 
               className={`submenu-link ${location.pathname === '/clicker-report' ? 'active' : ''}`} 
@@ -404,6 +415,17 @@ function Sidebar({ isSidebarOpen, dlrType, username, isVisualizeAllowed, userPri
               Download Report</a>
             </li>
              )}
+
+            {showVmnReport.includes(username) && (     
+             <li>
+              <a 
+              className={`submenu-link ${location.pathname === '/vmn-report' ? 'active' : ''}`} 
+              onClick={() => handleNavigation('/vmn-report')}>
+              <FontAwesomeIcon icon={faRightLong} className="submenu-icons"/>
+              VMN Report</a>
+            </li>
+            )}
+
           </ul>
           </div>
         </li>

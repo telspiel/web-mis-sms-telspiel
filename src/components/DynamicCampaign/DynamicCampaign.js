@@ -290,6 +290,8 @@ const handleContentTemplateChange = (selectedOption) => {
     const newText = selectedTemplate.templateText;
     setTemplateText(newText);
 
+    extractAndSetTags(newText); 
+
     const count = newText.length;
     setCharacterCount(count);
 
@@ -331,6 +333,10 @@ const handleTextChange = (event) => {
 
   const count = text.length;
   setCharacterCount(count);
+
+  extractAndSetTags(text);
+
+
 
   // Detect if the message contains any Unicode characters
   const hasUnicode = /[^\x00-\x7F]/.test(text);
@@ -388,12 +394,111 @@ const removeRow = (index) => {
 
 
 //==============================UPLOAD DYNAMIC NUMBERS===========================
+// const handleFileChange = (event) => {
+//   const selectedFile = event.target.files[0];
+//   setFile(selectedFile);
+//   setFileName(selectedFile ? selectedFile.name : "");
+//   setIsFileUploaded(false);
+// };
+
 const handleFileChange = (event) => {
-  const selectedFile = event.target.files[0]; // Update file state
+  const selectedFile = event.target.files[0];
+
+  if (!selectedFile) return;
+
+  const fileName = selectedFile.name;
+
+  // Check if filename contains space
+  if (fileName.includes(" ")) {
+    alert("File name should not contain any space");
+
+    // Reset states
+    setFile(null);
+    setFileName("");
+    setIsFileUploaded(false);
+
+    // Reset input so same file can be re-selected
+    event.target.value = "";
+
+    return;
+  }
+
+  // If valid file
   setFile(selectedFile);
-  setFileName(selectedFile ? selectedFile.name : "");
+  setFileName(fileName);
   setIsFileUploaded(false);
 };
+
+// ================================================================== 
+const [showConflictModal, setShowConflictModal] = useState(false);
+
+const getAllScheduledCampaign = async () => {
+  try {
+    const response = await fetch(Endpoints.get('viewScheduledCampaign'), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: userData.authJwtToken,
+      },
+      body: JSON.stringify({
+        loggedInUserName: userData.username,
+        fromDate: scheduleDate,
+        toDate: scheduleDate,
+        campaignType: "All",
+      }),
+    });
+
+    const res = await response.json();
+
+    const campaignList = res?.data?.consolidateCampaignList || [];
+
+    // Format selected time (HH:mm)
+    const selectedTime = `${scheduleHour.toString().padStart(2, '0')}:${scheduleMinute.toString().padStart(2, '0')}`;
+
+    // Convert scheduleDate (yyyy-mm-dd) → dd-mm-yyyy
+    const formattedDate = scheduleDate.split("-").reverse().join("-");
+
+    const isAlreadyScheduled = campaignList.some((campaign) => {
+      return (
+        campaign.schdeuledDate === formattedDate &&
+        campaign.scheduledTime === selectedTime
+      );
+    });
+
+    if (isAlreadyScheduled) {
+      if (isAlreadyScheduled) {
+        setShowConflictModal(true);
+      
+        setScheduleDate(() => new Date(Date.now() + 5.5 * 60 * 60 * 1000).toISOString().split("T")[0]);
+        setScheduleHour("");
+        setScheduleMinute("");
+      
+        return;
+      }
+
+      // Reset fields after alert OK
+      setScheduleDate(() => new Date(Date.now() + 5.5 * 60 * 60 * 1000).toISOString().split("T")[0]);
+      setScheduleHour("");
+      setScheduleMinute("");
+
+      return;
+    }
+  
+  } catch (error) {
+    console.error("Error fetching scheduled campaigns:", error);
+  }
+};
+
+useEffect(() => {
+  if (
+    scheduleDate &&
+    scheduleHour !== "" &&
+    scheduleMinute !== ""
+  ) {
+    getAllScheduledCampaign();
+  }
+}, [scheduleDate, scheduleHour, scheduleMinute]);
+// ================================================================== 
 
 const handleCampaignNameChange = (e) => {
   const validValue = e.target.value.replace(/[^a-zA-Z0-9-_]/g, ""); // Allow only A-Z, a-z, 0-9, -, _
@@ -501,22 +606,6 @@ const handleColumnChange = (event) => {
 };
 
 
-// const handleAddToText = () => {
-//   if (!selectedColumn) {
-//     alert("Please select a column from the list.");
-//     return;
-//   }
-
-//   // Replace the first occurrence of {#var#}
-//   const updatedText = templateText.replace("{#var#}", columnHeaderMap[selectedColumn]);
-//   setTemplateText(updatedText);
-
-//   // Update character count and SMS credit
-//   const count = updatedText.length;
-//   setCharacterCount(count);
-//   setSmsCredit(Math.ceil(count / 70));
-// };
-
 const handleAddToText = () => {
   if (!selectedColumn) {
     alert("Please select a column from the list.");
@@ -527,24 +616,59 @@ const handleAddToText = () => {
   const updatedText = templateText.replace("{#var#}", columnHeaderMap[selectedColumn]);
   setTemplateText(updatedText);
 
+  // Update character count and SMS credit
   const count = updatedText.length;
   setCharacterCount(count);
-
-  const hasUnicode = /[^\x00-\x7F]/.test(updatedText);
-
-  let credit = 0;
-  if (!hasUnicode) {
-    if (count > 0 && count <= 160) credit = 1;
-    else if (count <= 306) credit = 2;
-    else credit = 2 + Math.ceil((count - 306) / 153);
-  } else {
-    if (count > 0 && count <= 70) credit = 1;
-    else if (count <= 134) credit = 2;
-    else credit = 2 + Math.ceil((count - 134) / 67);
-  }
-
-  setSmsCredit(credit);
+  setSmsCredit(Math.ceil(count / 70));
 };
+
+// const [selectedTagIndex, setSelectedTagIndex] = useState(null);
+
+
+// const handleAddToText = () => {
+//   if (!selectedColumn) {
+//     alert("Please select a column from the list.");
+//     return;
+//   }
+
+//   if (selectedTagIndex === null) {
+//     alert("Please select a detected tag.");
+//     return;
+//   }
+
+//   const selectedTag = detectedTags[selectedTagIndex];
+//   const replacement = `#${selectedColumn}#`;
+
+//   // replace only the first occurrence
+//   const updatedText = templateText.replace(selectedTag, replacement);
+//   setTemplateText(updatedText);
+
+//   // remove ONLY the selected index
+//   const newTags = [...detectedTags];
+//   newTags.splice(selectedTagIndex, 1);
+//   setDetectedTags(newTags);
+
+//   setSelectedTagIndex(null);
+
+//   const count = updatedText.length;
+//   setCharacterCount(count);
+
+//   const hasUnicode = /[^\x00-\x7F]/.test(updatedText);
+
+//   let credit = 0;
+//   if (!hasUnicode) {
+//     if (count > 0 && count <= 160) credit = 1;
+//     else if (count <= 306) credit = 2;
+//     else credit = 2 + Math.ceil((count - 306) / 153);
+//   } else {
+//     if (count > 0 && count <= 70) credit = 1;
+//     else if (count <= 134) credit = 2;
+//     else credit = 2 + Math.ceil((count - 134) / 67);
+//   }
+
+//   setSmsCredit(credit);
+// };
+
 
 
 
@@ -752,6 +876,11 @@ const handlePreviewpage = async () => {
         setScheduleHour("");
         setScheduleMinute("");
 
+        // setSelectedTagIndex(null);
+        // setDetectedTags([]);
+        // setColumnHeaderMap({});
+        // setSelectedColumn(""); 
+
       if (responseMsgRef.current) {
         responseMsgRef.current.scrollIntoView({
           behavior: "smooth",
@@ -774,8 +903,18 @@ const handlePreviewpage = async () => {
     alert("An unexpected error occurred.");
   }  finally {
     setIsLoading(false); 
+  }
  }
- }
+
+ const [detectedTags, setDetectedTags] = useState([]);
+ const [selectedTag, setSelectedTag] = useState("");
+
+ const extractAndSetTags = (text) => {
+  const regex = /\{#([^}]+)#\}/g;
+  const matches = text.match(regex) || [];
+  setDetectedTags(matches); // KEEP duplicates
+};
+
   
 
   return (
@@ -984,6 +1123,7 @@ const handlePreviewpage = async () => {
                 </div>
               </div>
 
+              {/* <div className="quick-input-row">
               <div className="quick-input-field">
                 <label>Column List</label>
                 <select required onChange={handleColumnChange}>
@@ -995,6 +1135,38 @@ const handlePreviewpage = async () => {
                   ))}
                 </select>
               </div>
+
+              <div className="mapping-arrow">⇒</div>
+
+                  <div className="quick-input-field">
+                  <select
+                      value={selectedTagIndex ?? ""}
+                      onChange={(e) => setSelectedTagIndex(
+                        e.target.value === "" ? null : Number(e.target.value)
+                      )}
+                    >
+                      <option value="">-- Select Tag --</option>
+                      {detectedTags.map((tag, index) => (
+                        <option key={index} value={index}>
+                          {tag}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  </div> */}
+
+               <div className="quick-input-field">
+                <label>Column List</label>
+                <select required onChange={handleColumnChange}>
+                <option value="">-- Select --</option>
+                  {Object.entries(columnHeaderMap).map(([key, value]) => (
+                    <option key={key} value={key}>
+                      {key}
+                    </option>
+                  ))}
+                </select>
+              </div>   
+
               <div className="dynamic-campaign-buttons-wrap"> 
                 <button type="button" className="dynamic-campaign-button" onClick={handleAddToText} >Add To Text</button>
               </div>
@@ -1307,6 +1479,14 @@ const handlePreviewpage = async () => {
             <Footer/>
         </div>
       </div>
+      {showConflictModal && (
+        <div className="modal-overlay">
+          <div className="modal-box">
+            <p>A campaign is already scheduled for the selected date and time. Please choose a different time.</p>
+            <button onClick={() => setShowConflictModal(false)}>OK</button>
+          </div>
+        </div>
+)}
     </div>
   )
 }

@@ -1,0 +1,230 @@
+.wrap-templateid-report {
+    margin: 0 40px;
+  }
+
+  .template-date-filter-form-summary {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 20px;
+    margin: 20px auto; 
+    gap: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  } 
+  
+  .templateid-date-field {
+    display: flex;
+    flex-direction: column;
+    width: 100%
+  }
+  
+  .templateid-date-field label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+  
+  .templateid-date-field input {
+    padding: 10px 5px;
+    font-size: 16px;
+    border: 1px solid #f2f2f2;
+  }
+
+  .templateid-input-actions {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding: 15px 0 0;
+    width: 30%;
+  }
+
+  .templateid-form-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 15px 0 0;
+  }
+  
+  .templateid-form-actions .btn {
+    padding: 8px 16px;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .templateid-input-actions .submit-btn {
+    background-color: #44a67e;
+    border-color: #44a67e;
+    margin-top: 20px;
+    padding: 12px 15px;
+  }
+  
+  .templateid-form-actions .submit-btn:hover {
+    background-color: #44a67e;
+    border-color: #44a67e;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  }
+  
+  .templateid-form-actions .download-btn {
+    background: #373435;
+    color: #ffcc29;
+    margin-top: 20px;
+  }
+  
+  .templateid-form-actions .download-btn:hover {
+    background: #373435;
+    color: #ffcc29;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  }
+
+  .templateid-search-filter {
+    margin: 20px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: end;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .templateid-search-filter input {
+    width: 250px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .templateid-table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: #fff;
+  }
+
+  .templateid-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  
+  .templateid-table th,
+  .templateid-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+  }
+  
+  .templateid-table th {
+    background-color: #f4f4f4;
+    color: #373435;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: left;
+  }
+  
+  .templateid-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .templateid-table tbody tr:hover {
+    background-color:  rgba(255, 204, 41, 0.2);
+  }
+  
+  .templateid-table td {
+    color: #373435;
+  }
+  
+  .templateid-table tbody tr:last-child td {
+    border-bottom: 2px solid #ffcc29;
+  }
+
+  /* Expand Button */
+.templateid-expand-btn {
+    background: #373435;
+    color: #ffcc29;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .templateid-expand-btn:hover {
+    background: #ffcc29;
+    color: #373435;
+  }
+
+  /* Expanded Row */
+.templateid-expanded-row {
+    background-color: #eef7ff;
+  }
+  
+.templateid-expanded-content {
+    padding: 10px;
+  }
+
+  @media (max-width: 700px) {
+    .template-date-filter-form-summary {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+    }
+  
+    .templateid-date-field input {
+      max-width: 100%;
+    }
+  
+    .templateid-form-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+  
+    .templateid-form-actions .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .template-date-filter-form-summary {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+  
+    .templateid-date-field {
+        width: 100%;
+        align-items: center;
+    }
+  
+    .templateid-form-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+  
+    .templateid-form-actions .btn {
+        width: 100%;
+    }
+  
+    .templateid-table-container {
+      overflow-x: auto;
+    }
+  }  
+
+  @media screen and (max-width: 1050px) {
+    .under-1000px {
+      display: none;
+    }  
+  }
+  
+  @media screen and (min-width: 1051px) {
+    .toggle-button-expansion {
+      display: none;
+    }
+  }

@@ -519,8 +519,10 @@ function DownloadReport({ userData, onLogout }) {
             onLogout={onLogout}
           />
         <div className="dashboard-layout">
-        <Sidebar isSidebarOpen={isSidebarOpen} 
+        <Sidebar 
+          isSidebarOpen={isSidebarOpen} 
           dlrType={userData.dlrType}
+          username={userData.username}
           isVisualizeAllowed={userData.isVisualizeAllowed}
           userPrivileges={userData.userPrivileges}
          />

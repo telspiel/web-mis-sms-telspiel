@@ -474,19 +474,36 @@ const lineChartData = processedData
           <div className="dashboard-content">
 
           {/*Alert message to shown on dashboard after login  */}
-          {showAlert && (
+          {showAlert && userData.dlrType === "WEB_PANEL" && (
             <div className="alert-overlay">
               <div className="alert-popup">
                 <button className="close-button" onClick={() => setShowAlert(false)}>×</button>
                 <h2>Important Information</h2>
                 <p>
                   Dear User,<br /><br />
-                  Please be informed that when creating any user from the panel, kindly update the respective customer support team so they can verify the configuration according to the TM-PE binding protocol.
-                  Additionally, you are advised not to input any value through the option provided on the panel named <strong>"DLT Chain Registration"</strong>.
+                  {/* Please be informed that when creating any user from the panel, kindly update the respective customer support team so they can verify the configuration according to the TM-PE binding protocol.
+                  Additionally, you are advised not to input any value through the option provided on the panel named <strong>"DLT Chain Registration"</strong>. */}
+                  To help keep your account secure, we suggest updating your password every 7 days. If you haven’t done so yet, please take a moment to reset it at your earliest convenience.
                 </p>
               </div>
             </div>
           )}
+
+            {userData.dlrType === "WEB_PANEL" && (
+            <div className="report-bar-alert">
+              <strong className="report-heading">
+                Important Note:
+              </strong>
+              <div className="scrolling-wrapper-alert">
+                <div className="scrolling-text">
+                  <span className="campaign-text">
+                    To help keep your account secure, we suggest updating your password every 7 days. 
+                    If you haven’t done so yet, please take a moment to reset it at your earliest convenience.
+                  </span>
+                </div>
+              </div>
+            </div>
+            )}
 
             {popupMessages.length > 0 && (
               <div className="report-bar">

@@ -607,14 +607,46 @@ function BlacklistContacts({ userData, onLogout }) {
               <div className="wrap-blacklist-contacts">
                  <div className="upload-section">
                  <p>Upload Blacklist Number</p>
-                 <div className="blacklist-option-wrap">
+
+                <div className="blacklist-option-wrap">
                 <label>Choose File:</label>
                 <div className="input-alert-combine">
-                <input
+                {/* <input
                     type="file"
                     accept=".txt"
                     className="file-input"
                     onChange={(e) => setUploadFile(e.target.files[0])}
+                /> */}
+                  <input
+                  type="file"
+                  accept=".txt"
+                  className="file-input"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+
+                    if (file) {
+                      const fileName = file.name;
+
+                      //Check for spaces in file name
+                      if (fileName.includes(" ")) {
+                        alert("File name should not contain any space");
+                        e.target.value = "";
+                        setUploadFile(null);
+                        return;
+                      }
+
+                      // Check file type (.txt only)
+                      if (file.type === "text/plain" || fileName.toLowerCase().endsWith(".txt")) {
+                        setUploadFile(file);
+                      } else {
+                        alert("Only .txt files are allowed.");
+                        e.target.value = "";
+                        setUploadFile(null);
+                      }
+                    } else {
+                      setUploadFile(null);
+                    }
+                  }}
                 />
                 <small className="file-name">{uploadFile ? uploadFile.name : ""}</small>
                 <small><strong>NOTE:</strong> only .txt files are allowed, It'll only accept a file having numbers max. 50,000</small>

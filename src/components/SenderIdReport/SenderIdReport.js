@@ -74,15 +74,15 @@ function SenderIdReport({ userData, onLogout }) {
         fetchSenderIdReport();
     }, []);
 
-const handleDateChange = (e) => {
-const { name, value } = e.target;
-if (name === "fromDate") setFromDate(value);
-if (name === "toDate") setToDate(value);
-};
+    const handleDateChange = (e) => {
+      const { name, value } = e.target;
+      if (name === "fromDate") setFromDate(value);
+      if (name === "toDate") setToDate(value);
+    };
 
-const handleSubmit = () => {
-    fetchSenderIdReport();
-};
+    const handleSubmit = () => {
+        fetchSenderIdReport();
+    };
 
 const calculateTotals = (data) => {
     const totalCounts = data.reduce(
